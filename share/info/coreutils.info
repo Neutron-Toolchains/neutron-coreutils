@@ -8135,8 +8135,8 @@ non-sensitive data.
 
    *Please note* that ‘shred’ relies on a crucial assumption: that the
 file system and hardware overwrite data in place.  Although this is
-common and is the traditional way to do things, but many modern file
-system designs do not satisfy this assumption.  Exceptions include:
+common and is the traditional way to do things, many modern file system
+designs do not satisfy this assumption.  Exceptions include:
 
    • Log-structured or journaled file systems, such as ext3/ext4 (in
      ‘data=journal’ mode), Btrfs, NTFS, ReiserFS, XFS, ZFS, file systems
@@ -16236,13 +16236,29 @@ require a colon before a location name in a ‘TZ’ setting, e.g.,
 ‘TZ=":America/New_York"’.
 
    The ‘tz’ database includes a wide variety of locations ranging from
-‘Arctic/Longyearbyen’ to ‘Antarctica/South_Pole’, but if you are at sea
-and have your own private time zone, or if you are using a non-GNU host
-that does not support the ‘tz’ database, you may need to use a POSIX
-rule instead.  Simple POSIX rules like ‘UTC0’ specify a time zone
-without daylight saving time; other rules can specify simple daylight
-saving regimes.  *Note Specifying the Time Zone with ‘TZ’: (libc)TZ
-Variable.
+‘Africa/Abidjan’ to ‘Pacific/Tongatapu’, but if you are at sea and have
+your own private time zone, or if you are using a non-GNU host that does
+not support the ‘tz’ database, you may need to use a POSIX rule instead.
+The previously-mentioned POSIX rule ‘UTC0’ says that the time zone
+abbreviation is ‘UTC’, the zone is zero hours away from Greenwich, and
+there is no daylight saving time.  POSIX rules can also specify nonzero
+Greenwich offsets.  For example, the following shell transcript answers
+the question “What time is it five and a half hours east of Greenwich
+when a clock seven hours west of Greenwich shows 9:50pm on July 12,
+2022?”
+
+     $ TZ="<+0530>-5:30" date --date='TZ="<-07>+7" 2022-07-12 21:50'
+     Wed Jul 13 10:20:00 +0530 2022
+
+This example uses the somewhat-confusing POSIX convention for rules.
+‘TZ="<-07>+7"’ says that the time zone abbreviation is ‘-07’ and the
+time zone is 7 hours west of Greenwich, and ‘TZ="<+0530>-5:30"’ says
+that the time zone abbreviation is ‘+0530’ and the time zone is 5 hours
+30 minutes east of Greenwich.  Although trickier POSIX ‘TZ’ settings
+like ‘TZ="<-05>+5<-04>,M3.2.0/2,M11.1.0/2"’ can specify some daylight
+saving regimes, location-based settings like ‘TZ="America/New_York"’ are
+typically simpler and more accurate historically.  *Note Specifying the
+Time Zone with ‘TZ’: (libc)TZ Variable.
 
 
 File: coreutils.info,  Node: Authors of parse_datetime,  Prev: Specifying time zone rules,  Up: Date input formats
@@ -21350,165 +21366,165 @@ Node: install invocation325089
 Node: mv invocation331432
 Node: rm invocation336714
 Node: shred invocation341600
-Node: Special file types351967
-Node: link invocation353496
-Node: ln invocation354753
-Node: mkdir invocation363854
-Node: mkfifo invocation366909
-Node: mknod invocation368384
-Node: readlink invocation370933
-Node: rmdir invocation373492
-Node: unlink invocation375112
-Node: Changing file attributes376106
-Node: chown invocation376932
-Node: chgrp invocation384402
-Node: chmod invocation388644
-Node: touch invocation392161
-Node: File space usage397872
-Node: df invocation398576
-Node: du invocation408412
-Node: stat invocation419665
-Node: sync invocation429312
-Node: truncate invocation431504
-Node: Printing text433544
-Node: echo invocation433924
-Node: printf invocation437177
-Node: yes invocation443219
-Node: Conditions443871
-Node: false invocation444466
-Node: true invocation445555
-Node: test invocation446888
-Node: File type tests449025
-Node: Access permission tests449944
-Node: File characteristic tests450858
-Node: String tests451749
-Node: Numeric tests452588
-Node: Connectives for test453423
-Node: expr invocation454677
-Node: String expressions457126
-Node: Numeric expressions459793
-Node: Relations for expr460501
-Node: Examples of expr461730
-Node: Redirection462479
-Node: tee invocation462944
-Node: File name manipulation469509
-Node: basename invocation470084
-Node: dirname invocation472303
-Node: pathchk invocation474120
-Node: mktemp invocation475934
-Node: realpath invocation481752
-Node: Realpath usage examples484815
-Node: Working context486630
-Node: pwd invocation487274
-Node: stty invocation488693
-Node: Control491678
-Node: Input492754
-Node: Output494508
-Node: Local495926
-Node: Combination498013
-Node: Characters500425
-Node: Special502260
-Node: printenv invocation504658
-Node: tty invocation505669
-Node: User information506403
-Node: id invocation507038
-Node: logname invocation509751
-Node: whoami invocation510408
-Node: groups invocation510919
-Node: users invocation512154
-Node: who invocation513334
-Node: System context516669
-Node: date invocation517334
-Node: Time conversion specifiers519268
-Node: Date conversion specifiers522004
-Node: Literal conversion specifiers525469
-Node: Padding and other flags525841
-Node: Setting the time529485
-Node: Options for date530649
-Node: Examples of date536196
-Ref: %s-examples537698
-Node: arch invocation540631
-Node: nproc invocation541190
-Node: uname invocation542410
-Node: hostname invocation545138
-Node: hostid invocation545968
-Node: uptime invocation546841
-Node: SELinux context548323
-Node: chcon invocation548698
-Node: runcon invocation551103
-Node: Modified command invocation552884
-Node: chroot invocation553576
-Ref: chroot invocation-Footnote-1557470
-Node: env invocation557987
-Node: nice invocation574843
-Node: nohup invocation578976
-Node: stdbuf invocation581478
-Node: timeout invocation584412
-Node: Process control589204
-Node: kill invocation589427
-Node: Delaying592621
-Node: sleep invocation592818
-Node: Numeric operations594234
-Node: factor invocation594619
-Node: numfmt invocation596587
-Node: seq invocation608317
-Node: File permissions612715
-Node: Mode Structure613408
-Node: Symbolic Modes617087
-Node: Setting Permissions618205
-Node: Copying Permissions620871
-Node: Changing Special Mode Bits621741
-Node: Conditional Executability623623
-Node: Multiple Changes624175
-Node: Umask and Protection625848
-Node: Numeric Modes626993
-Node: Operator Numeric Modes629339
-Node: Directory Setuid and Setgid630399
-Node: File timestamps633254
-Node: Date input formats636577
-Node: General date syntax638988
-Node: Calendar date items642119
-Node: Time of day items644104
-Node: Time zone items646408
-Node: Combined date and time of day items647809
-Node: Day of week items648680
-Node: Relative items in date strings649764
-Node: Pure numbers in date strings652674
-Node: Seconds since the Epoch653663
-Node: Specifying time zone rules655394
-Node: Authors of parse_datetime657866
-Ref: Authors of get_date658057
-Node: Version sort ordering659056
-Node: Version sort overview659377
-Node: Using version sort in GNU Coreutils660389
-Node: Version sort and natural sort661905
-Node: Variations in version sort order662779
-Node: Version sort implementation663559
-Node: Version-sort ordering rules664370
-Node: Version sort is not the same as numeric sort667167
-Node: Version sort punctuation669203
-Node: Punctuation vs letters670834
-Node: The tilde ~671673
-Node: Version sort ignores locale673032
-Node: Differences from Debian version sort674128
-Node: Hyphen-minus and colon674709
-Node: Special priority in GNU Coreutils version sort676340
-Node: Special handling of file extensions677516
-Node: Comparing two strings using Debian's algorithm682587
-Node: Advanced version sort topics684505
-Node: Reporting version sort bugs684795
-Node: Other version/natural sort implementations686000
-Node: Related source code688145
-Node: Opening the software toolbox688911
-Node: Toolbox introduction689709
-Node: I/O redirection692457
-Node: The who command695345
-Node: The cut command696270
-Node: The sort command697372
-Node: The uniq command698090
-Node: Putting the tools together698805
-Node: GNU Free Documentation License711142
-Node: Concept index736521
+Node: Special file types351963
+Node: link invocation353492
+Node: ln invocation354749
+Node: mkdir invocation363850
+Node: mkfifo invocation366905
+Node: mknod invocation368380
+Node: readlink invocation370929
+Node: rmdir invocation373488
+Node: unlink invocation375108
+Node: Changing file attributes376102
+Node: chown invocation376928
+Node: chgrp invocation384398
+Node: chmod invocation388640
+Node: touch invocation392157
+Node: File space usage397868
+Node: df invocation398572
+Node: du invocation408408
+Node: stat invocation419661
+Node: sync invocation429308
+Node: truncate invocation431500
+Node: Printing text433540
+Node: echo invocation433920
+Node: printf invocation437173
+Node: yes invocation443215
+Node: Conditions443867
+Node: false invocation444462
+Node: true invocation445551
+Node: test invocation446884
+Node: File type tests449021
+Node: Access permission tests449940
+Node: File characteristic tests450854
+Node: String tests451745
+Node: Numeric tests452584
+Node: Connectives for test453419
+Node: expr invocation454673
+Node: String expressions457122
+Node: Numeric expressions459789
+Node: Relations for expr460497
+Node: Examples of expr461726
+Node: Redirection462475
+Node: tee invocation462940
+Node: File name manipulation469505
+Node: basename invocation470080
+Node: dirname invocation472299
+Node: pathchk invocation474116
+Node: mktemp invocation475930
+Node: realpath invocation481748
+Node: Realpath usage examples484811
+Node: Working context486626
+Node: pwd invocation487270
+Node: stty invocation488689
+Node: Control491674
+Node: Input492750
+Node: Output494504
+Node: Local495922
+Node: Combination498009
+Node: Characters500421
+Node: Special502256
+Node: printenv invocation504654
+Node: tty invocation505665
+Node: User information506399
+Node: id invocation507034
+Node: logname invocation509747
+Node: whoami invocation510404
+Node: groups invocation510915
+Node: users invocation512150
+Node: who invocation513330
+Node: System context516665
+Node: date invocation517330
+Node: Time conversion specifiers519264
+Node: Date conversion specifiers522000
+Node: Literal conversion specifiers525465
+Node: Padding and other flags525837
+Node: Setting the time529481
+Node: Options for date530645
+Node: Examples of date536192
+Ref: %s-examples537694
+Node: arch invocation540627
+Node: nproc invocation541186
+Node: uname invocation542406
+Node: hostname invocation545134
+Node: hostid invocation545964
+Node: uptime invocation546837
+Node: SELinux context548319
+Node: chcon invocation548694
+Node: runcon invocation551099
+Node: Modified command invocation552880
+Node: chroot invocation553572
+Ref: chroot invocation-Footnote-1557466
+Node: env invocation557983
+Node: nice invocation574839
+Node: nohup invocation578972
+Node: stdbuf invocation581474
+Node: timeout invocation584408
+Node: Process control589200
+Node: kill invocation589423
+Node: Delaying592617
+Node: sleep invocation592814
+Node: Numeric operations594230
+Node: factor invocation594615
+Node: numfmt invocation596583
+Node: seq invocation608313
+Node: File permissions612711
+Node: Mode Structure613404
+Node: Symbolic Modes617083
+Node: Setting Permissions618201
+Node: Copying Permissions620867
+Node: Changing Special Mode Bits621737
+Node: Conditional Executability623619
+Node: Multiple Changes624171
+Node: Umask and Protection625844
+Node: Numeric Modes626989
+Node: Operator Numeric Modes629335
+Node: Directory Setuid and Setgid630395
+Node: File timestamps633250
+Node: Date input formats636573
+Node: General date syntax638984
+Node: Calendar date items642115
+Node: Time of day items644100
+Node: Time zone items646404
+Node: Combined date and time of day items647805
+Node: Day of week items648676
+Node: Relative items in date strings649760
+Node: Pure numbers in date strings652670
+Node: Seconds since the Epoch653659
+Node: Specifying time zone rules655390
+Node: Authors of parse_datetime658826
+Ref: Authors of get_date659017
+Node: Version sort ordering660016
+Node: Version sort overview660337
+Node: Using version sort in GNU Coreutils661349
+Node: Version sort and natural sort662865
+Node: Variations in version sort order663739
+Node: Version sort implementation664519
+Node: Version-sort ordering rules665330
+Node: Version sort is not the same as numeric sort668127
+Node: Version sort punctuation670163
+Node: Punctuation vs letters671794
+Node: The tilde ~672633
+Node: Version sort ignores locale673992
+Node: Differences from Debian version sort675088
+Node: Hyphen-minus and colon675669
+Node: Special priority in GNU Coreutils version sort677300
+Node: Special handling of file extensions678476
+Node: Comparing two strings using Debian's algorithm683547
+Node: Advanced version sort topics685465
+Node: Reporting version sort bugs685755
+Node: Other version/natural sort implementations686960
+Node: Related source code689105
+Node: Opening the software toolbox689871
+Node: Toolbox introduction690669
+Node: I/O redirection693417
+Node: The who command696305
+Node: The cut command697230
+Node: The sort command698332
+Node: The uniq command699050
+Node: Putting the tools together699765
+Node: GNU Free Documentation License712102
+Node: Concept index737481
 
 End Tag Table
 
