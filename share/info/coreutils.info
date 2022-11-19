@@ -340,9 +340,9 @@ Conditions
 
 ‘expr’: Evaluate expression
 
-* String expressions::           + : match substr index length
-* Numeric expressions::          + - * / %
-* Relations for expr::           | & < <= = == != >= >
+* String expressions::           ‘+ : match substr index length’
+* Numeric expressions::          ‘+ - * / %’
+* Relations for expr::           ‘| & < <= = == != >= >’
 * Examples of expr::             Examples of using ‘expr’
 
 Redirection
@@ -447,15 +447,15 @@ File permissions
 Date input formats
 
 * General date syntax::          Common rules
-* Calendar date items::          21 Jul 2020
-* Time of day items::            9:20pm
-* Time zone items::              UTC, -0700, +0900, ...
-* Combined date and time of day items:: 2020-07-21T20:02:00,000000-0400
-* Day of week items::            Monday and others
-* Relative items in date strings:: next tuesday, 2 years ago
-* Pure numbers in date strings:: 20200721, 1440
-* Seconds since the Epoch::      @1595289600
-* Specifying time zone rules::   TZ="America/New_York", TZ="UTC0"
+* Calendar date items::          ‘14 Nov 2022’
+* Time of day items::            ‘9:02pm’
+* Time zone items::              ‘UTC’, ‘-0700’, ‘+0900’, ...
+* Combined date and time of day items:: ‘2022-11-14T21:02:42,000000-0500’
+* Day of week items::            ‘Monday’ and others
+* Relative items in date strings:: ‘next tuesday, 2 years ago’
+* Pure numbers in date strings:: ‘20221114’, ‘2102’
+* Seconds since the Epoch::      ‘@1668477762’
+* Specifying time zone rules::   ‘TZ="America/New_York"’, ‘TZ="UTC0"’
 * Authors of parse_datetime::    Bellovin, Eggert, Salz, Berets, et al.
 
 Version sorting order
@@ -577,43 +577,30 @@ that requires a file name.
 
 * Menu:
 
-* Exit status::                 Indicating program success or failure.
-* Backup options::              -b -S, in some programs.
-* Block size::                  BLOCK_SIZE and –block-size, in some programs.
-* Floating point::              Floating point number representation.
-* Signal specifications::       Specifying signals using the –signal option.
+Items shared between some programs:
+
+* Backup options::               ‘-b’ ‘-S’.
+* Block size::                   BLOCK_SIZE and ‘--block-size’.
+* Signal specifications::        Specifying signals with ‘--signal’.
 * Disambiguating names and IDs:: chgrp, chown, chroot, id: user and group syntax
-* Random sources::              –random-source, in some programs.
-* Target directory::            Specifying a target directory, in some programs.
-* Trailing slashes::            –strip-trailing-slashes, in some programs.
-* Traversing symlinks::         -H, -L, or -P, in some programs.
-* Treating / specially::        –preserve-root and –no-preserve-root.
-* Special built-in utilities::  ‘break’, ‘:’, ...
-* Standards conformance::       Conformance to the POSIX standard.
-* Multi-call invocation::       Multi-call program invocation.
+* Random sources::               ‘--random-source’.
+* Target directory::             Specifying a target directory.
+* Trailing slashes::             ‘--strip-trailing-slashes’.
+* Traversing symlinks::          ‘-H’, ‘-L’, or ‘-P’.
+* Treating / specially::         ‘--preserve-root’ and the converse.
+* Special built-in utilities::   ‘break’, ‘:’, ...
+
+Items applicable to all programs:
+
+* Exit status::                  Indicating program success or failure.
+* Floating point::               Floating point number representation.
+* Standards conformance::        Conformance to the POSIX standard.
+* Multi-call invocation::        Multi-call program invocation.
 
 
-File: coreutils.info,  Node: Exit status,  Next: Backup options,  Up: Common options
+File: coreutils.info,  Node: Backup options,  Next: Block size,  Up: Common options
 
-2.1 Exit status
-===============
-
-Nearly every command invocation yields an integral “exit status” that
-can be used to change how other commands work.  For the vast majority of
-commands, an exit status of zero indicates success.  Failure is
-indicated by a nonzero value—typically ‘1’, though it may differ on
-unusual platforms as POSIX requires only that it be nonzero.
-
-   However, some of the programs documented here do produce other exit
-status values and a few associate different meanings with the values ‘0’
-and ‘1’.  Here are the exceptions: ‘chroot’, ‘env’, ‘expr’, ‘ls’,
-‘nice’, ‘nohup’, ‘numfmt’, ‘printenv’, ‘runcon’, ‘sort’, ‘stdbuf’,
-‘test’, ‘timeout’, ‘tty’.
-
-
-File: coreutils.info,  Node: Backup options,  Next: Block size,  Prev: Exit status,  Up: Common options
-
-2.2 Backup options
+2.1 Backup options
 ==================
 
 Some GNU programs (at least ‘cp’, ‘install’, ‘ln’, and ‘mv’) optionally
@@ -665,9 +652,9 @@ mentioned in the descriptions of the particular programs.
      set, the default is ‘~’, just as in Emacs.
 
 
-File: coreutils.info,  Node: Block size,  Next: Floating point,  Prev: Backup options,  Up: Common options
+File: coreutils.info,  Node: Block size,  Next: Signal specifications,  Prev: Backup options,  Up: Common options
 
-2.3 Block size
+2.2 Block size
 ==============
 
 Some GNU programs (at least ‘df’, ‘du’, and ‘ls’) display sizes in
@@ -795,44 +782,9 @@ control the display of the apparent file sizes, whereas the
 ‘--block-size’ option does.
 
 
-File: coreutils.info,  Node: Floating point,  Next: Signal specifications,  Prev: Block size,  Up: Common options
+File: coreutils.info,  Node: Signal specifications,  Next: Disambiguating names and IDs,  Prev: Block size,  Up: Common options
 
-2.4 Floating point numbers
-==========================
-
-Commands that accept or produce floating point numbers employ the
-floating point representation of the underlying system, and suffer from
-rounding error, overflow, and similar floating-point issues.  Almost all
-modern systems use IEEE-754 floating point, and it is typically portable
-to assume IEEE-754 behavior these days.  IEEE-754 has positive and
-negative infinity, distinguishes positive from negative zero, and uses
-special values called NaNs to represent invalid computations such as
-dividing zero by itself.  For more information, please see David
-Goldberg’s paper What Every Computer Scientist Should Know About
-Floating-Point Arithmetic
-(https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html).
-
-   Commands that accept floating point numbers as options, operands or
-input use the standard C functions ‘strtod’ and ‘strtold’ to convert
-from text to floating point numbers.  These floating point numbers
-therefore can use scientific notation like ‘1.0e-34’ and ‘-10e100’.
-Commands that parse floating point also understand case-insensitive
-‘inf’, ‘infinity’, and ‘NaN’, although whether such values are useful
-depends on the command in question.  Modern C implementations also
-accept hexadecimal floating point numbers such as ‘-0x.ep-3’, which
-stands for −14/16 times 2^-3, which equals −0.109375.  *Note
-(libc)Parsing of Floats::.
-
-   Normally the ‘LC_NUMERIC’ locale determines the decimal-point
-character.  However, some commands’ descriptions specify that they
-accept numbers in either the current or the C locale; for example, they
-treat ‘3.14’ like ‘3,14’ if the current locale uses comma as a decimal
-point.
-
-
-File: coreutils.info,  Node: Signal specifications,  Next: Disambiguating names and IDs,  Prev: Floating point,  Up: Common options
-
-2.5 Signal specifications
+2.3 Signal specifications
 =========================
 
 A SIGNAL may be a signal name like ‘HUP’, or a signal number like ‘1’,
@@ -914,7 +866,7 @@ least eight real-time signals called ‘RTMIN’, ‘RTMIN+1’, ..., ‘RTMAX-1
 
 File: coreutils.info,  Node: Disambiguating names and IDs,  Next: Random sources,  Prev: Signal specifications,  Up: Common options
 
-2.6 chown, chgrp, chroot, id: Disambiguating user names and IDs
+2.4 chown, chgrp, chroot, id: Disambiguating user names and IDs
 ===============================================================
 
 Since the USER and GROUP arguments to these commands may be specified as
@@ -926,8 +878,8 @@ resolve the specified string as a name, and only once that fails, then
 try to interpret it as an ID.  This is troublesome when you want to
 specify a numeric ID, say 42, and it must work even in a pathological
 situation where ‘42’ is a user name that maps to some other user ID, say
-1000.  Simply invoking ‘chown 42 F’, will set ‘F’s owner ID to 1000—not
-what you intended.
+1000.  Simply invoking ‘chown 42 F’, will set ‘F’s owner ID to 1000 –
+not what you intended.
 
    GNU ‘chown’, ‘chgrp’, ‘chroot’, and ‘id’ provide a way to work around
 this, that at the same time may result in a significant performance
@@ -947,7 +899,7 @@ This syntax is accepted on most common Unix systems, but not on Solaris
 
 File: coreutils.info,  Node: Random sources,  Next: Target directory,  Prev: Disambiguating names and IDs,  Up: Common options
 
-2.7 Sources of random data
+2.5 Sources of random data
 ==========================
 
 The ‘shuf’, ‘shred’, and ‘sort’ commands sometimes need random data to
@@ -991,7 +943,7 @@ amount of pseudo-random data given a seed value, using for example:
 
 File: coreutils.info,  Node: Target directory,  Next: Trailing slashes,  Prev: Random sources,  Up: Common options
 
-2.8 Target directory
+2.6 Target directory
 ====================
 
 The ‘cp’, ‘install’, ‘ln’, and ‘mv’ commands normally treat the last
@@ -1067,7 +1019,7 @@ options cannot be combined.
 
 File: coreutils.info,  Node: Trailing slashes,  Next: Traversing symlinks,  Prev: Target directory,  Up: Common options
 
-2.9 Trailing slashes
+2.7 Trailing slashes
 ====================
 
 Some GNU programs (at least ‘cp’ and ‘mv’) allow you to remove any
@@ -1088,8 +1040,8 @@ of that standard.
 
 File: coreutils.info,  Node: Traversing symlinks,  Next: Treating / specially,  Prev: Trailing slashes,  Up: Common options
 
-2.10 Traversing symlinks
-========================
+2.8 Traversing symlinks
+=======================
 
 The following options modify how ‘chown’ and ‘chgrp’ traverse a
 hierarchy when the ‘--recursive’ (‘-R’) option is also specified.  If
@@ -1117,8 +1069,8 @@ its referent.
 
 File: coreutils.info,  Node: Treating / specially,  Next: Special built-in utilities,  Prev: Traversing symlinks,  Up: Common options
 
-2.11 Treating ‘/’ specially
-===========================
+2.9 Treating ‘/’ specially
+==========================
 
 Certain commands can operate destructively on entire hierarchies.  For
 example, if a user with appropriate privileges mistakenly runs ‘rm -rf /
@@ -1145,9 +1097,9 @@ safer for most purposes.  For convenience you can specify
 ‘/’.
 
 
-File: coreutils.info,  Node: Special built-in utilities,  Next: Standards conformance,  Prev: Treating / specially,  Up: Common options
+File: coreutils.info,  Node: Special built-in utilities,  Next: Exit status,  Prev: Treating / specially,  Up: Common options
 
-2.12 Special built-in utilities
+2.10 Special built-in utilities
 ===============================
 
 Some programs like ‘nice’ can invoke other programs; for example, the
@@ -1173,7 +1125,60 @@ the command ‘nice suspend’ generates an error message instead of
 suspending.
 
 
-File: coreutils.info,  Node: Standards conformance,  Next: Multi-call invocation,  Prev: Special built-in utilities,  Up: Common options
+File: coreutils.info,  Node: Exit status,  Next: Floating point,  Prev: Special built-in utilities,  Up: Common options
+
+2.11 Exit status
+================
+
+Nearly every command invocation yields an integral “exit status” that
+can be used to change how other commands work.  For the vast majority of
+commands, an exit status of zero indicates success.  Failure is
+indicated by a nonzero value – typically ‘1’, though it may differ on
+unusual platforms as POSIX requires only that it be nonzero.
+
+   However, some of the programs documented here do produce other exit
+status values and a few associate different meanings with the values ‘0’
+and ‘1’.  Here are the exceptions: ‘chroot’, ‘env’, ‘expr’, ‘ls’,
+‘nice’, ‘nohup’, ‘numfmt’, ‘printenv’, ‘runcon’, ‘sort’, ‘stdbuf’,
+‘test’, ‘timeout’, ‘tty’.
+
+
+File: coreutils.info,  Node: Floating point,  Next: Standards conformance,  Prev: Exit status,  Up: Common options
+
+2.12 Floating point numbers
+===========================
+
+Commands that accept or produce floating point numbers employ the
+floating point representation of the underlying system, and suffer from
+rounding error, overflow, and similar floating-point issues.  Almost all
+modern systems use IEEE-754 floating point, and it is typically portable
+to assume IEEE-754 behavior these days.  IEEE-754 has positive and
+negative infinity, distinguishes positive from negative zero, and uses
+special values called NaNs to represent invalid computations such as
+dividing zero by itself.  For more information, please see David
+Goldberg’s paper What Every Computer Scientist Should Know About
+Floating-Point Arithmetic
+(https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html).
+
+   Commands that accept floating point numbers as options, operands or
+input use the standard C functions ‘strtod’ and ‘strtold’ to convert
+from text to floating point numbers.  These floating point numbers
+therefore can use scientific notation like ‘1.0e-34’ and ‘-10e100’.
+Commands that parse floating point also understand case-insensitive
+‘inf’, ‘infinity’, and ‘NaN’, although whether such values are useful
+depends on the command in question.  Modern C implementations also
+accept hexadecimal floating point numbers such as ‘-0x.ep-3’, which
+stands for −14/16 times 2^-3, which equals −0.109375.  *Note
+(libc)Parsing of Floats::.
+
+   Normally the ‘LC_NUMERIC’ locale determines the decimal-point
+character.  However, some commands’ descriptions specify that they
+accept numbers in either the current or the C locale; for example, they
+treat ‘3.14’ like ‘3,14’ if the current locale uses comma as a decimal
+point.
+
+
+File: coreutils.info,  Node: Standards conformance,  Next: Multi-call invocation,  Prev: Floating point,  Up: Common options
 
 2.13 Standards conformance
 ==========================
@@ -1895,7 +1900,7 @@ a paragraph or a word ending in any of ‘.?!’, followed by two spaces or
 end of line, ignoring any intervening parentheses or quotes.  Like TeX,
 ‘fmt’ reads entire “paragraphs” before choosing line breaks; the
 algorithm is a variant of that given by Donald E. Knuth and Michael F.
-Plass in “Breaking Paragraphs Into Lines”, ‘Software—Practice &
+Plass in “Breaking Paragraphs Into Lines”, ‘Software: Practice &
 Experience’ 11, 11 (November 1981), 1119–1184.
 
    The program accepts the following options.  Also see *note Common
@@ -2432,8 +2437,8 @@ options::.
 
      With kernel inotify support, output is triggered by file changes
      and is generally very prompt.  Otherwise, ‘tail’ sleeps for one
-     second between checks— use ‘--sleep-interval=N’ to change that
-     default—which can make the output appear slightly less responsive
+     second between checks – use ‘--sleep-interval=N’ to change that
+     default – which can make the output appear slightly less responsive
      or bursty.  When using tail without inotify support, you can make
      it more responsive by using a sub-second sleep interval, e.g., via
      an alias like this:
@@ -3106,7 +3111,7 @@ File: coreutils.info,  Node: cksum invocation,  Next: b2sum invocation,  Prev: s
 each given FILE, or standard input if none are given or for a FILE of
 ‘-’.
 
-   cksum also supports the ‘-a,--algorithm’ option to select the digest
+   cksum also supports the ‘-a/--algorithm’ option to select the digest
 algorithm to use.  ‘cksum’ is the preferred interface to these digests,
 subsuming the other standalone checksumming utilities, which can be
 emulated using ‘cksum -a md5 --untagged "$@"’ etc.  Synopsis:
@@ -5188,8 +5193,8 @@ options::.
      example, the commands ‘join -o 1.2,2.2’ and ‘join -o '1.2 2.2'’ are
      equivalent.
 
-     All output lines—including those printed because of any -a or -v
-     option—are subject to the specified FIELD-LIST.
+     All output lines – including those printed because of any ‘-a’ or
+     ‘-v’ option – are subject to the specified FIELD-LIST.
 
 ‘-t CHAR’
      Use character CHAR as the input and output field separator.  Treat
@@ -6045,9 +6050,10 @@ start with ‘.’.
 ‘--group-directories-first’
      Group all the directories before the files and then sort the
      directories and the files separately using the selected sort key
-     (see –sort option).  That is, this option specifies a primary sort
-     key, and the –sort option specifies a secondary key.  However, any
-     use of ‘--sort=none’ (‘-U’) disables this option altogether.
+     (see ‘--sort’ option).  That is, this option specifies a primary
+     sort key, and the ‘--sort’ option specifies a secondary key.
+     However, any use of ‘--sort=none’ (‘-U’) disables this option
+     altogether.
 
 ‘--hide=PATTERN’
      In directories, ignore files whose names match the shell pattern
@@ -6373,9 +6379,10 @@ order).
 
 ‘-r’
 ‘--reverse’
-     Reverse whatever the sorting method is—e.g., list files in reverse
-     alphabetical order, youngest first, smallest first, or whatever.
-     This option has no effect when ‘--sort=none’ (‘-U’) is in effect.
+     Reverse whatever the sorting method is – e.g., list files in
+     reverse alphabetical order, youngest first, smallest first, or
+     whatever.  This option has no effect when ‘--sort=none’ (‘-U’) is
+     in effect.
 
 ‘-S’
 ‘--sort=size’
@@ -7186,13 +7193,13 @@ options::.
      (contrast with ‘-f’ above).
 
 ‘--sparse=WHEN’
-     A “sparse file” contains “holes”—a sequence of zero bytes that does
-     not occupy any file system blocks; the ‘read’ system call reads
-     these as zeros.  This can both save considerable space and increase
-     speed, since many binary files contain lots of consecutive zero
-     bytes.  By default, ‘cp’ detects holes in input source files via a
-     crude heuristic and makes the corresponding output file sparse as
-     well.  Only regular files may be sparse.
+     A “sparse file” contains “holes” – a sequence of zero bytes that
+     does not occupy any file system blocks; the ‘read’ system call
+     reads these as zeros.  This can both save considerable space and
+     increase speed, since many binary files contain lots of consecutive
+     zero bytes.  By default, ‘cp’ detects holes in input source files
+     via a crude heuristic and makes the corresponding output file
+     sparse as well.  Only regular files may be sparse.
 
      The WHEN value can be one of the following:
 
@@ -7666,7 +7673,7 @@ that POSIX allows BYTES to be followed by ‘k’, ‘b’, and ‘xM’.  Block
 sizes (i.e., specified by BYTES strings) must be nonzero.
 
    Any block size you specify via ‘bs=’, ‘ibs=’, ‘obs=’, ‘cbs=’ should
-not be too large—values larger than a few megabytes are generally
+not be too large – values larger than a few megabytes are generally
 wasteful or (as in the gigabyte..exabyte case) downright
 counterproductive or error-inducing.
 
@@ -7819,11 +7826,11 @@ options::.
      which can be either an octal number, or a symbolic mode as in
      ‘chmod’, with ‘a=’ (no access allowed to anyone) as the point of
      departure (*note File permissions::).  The default mode is
-     ‘u=rwx,go=rx,a-s’—read, write, and execute for the owner, read and
-     execute for group and other, and with set-user-ID and set-group-ID
-     disabled.  This default is not quite the same as ‘755’, since it
-     disables instead of preserving set-user-ID and set-group-ID on
-     directories.  *Note Directory Setuid and Setgid::.
+     ‘u=rwx,go=rx,a-s’ – read, write, and execute for the owner, read
+     and execute for group and other, and with set-user-ID and
+     set-group-ID disabled.  This default is not quite the same as
+     ‘755’, since it disables instead of preserving set-user-ID and
+     set-group-ID on directories.  *Note Directory Setuid and Setgid::.
 
 ‘-o OWNER’
 ‘--owner=OWNER’
@@ -8362,10 +8369,10 @@ This chapter describes commands which create special types of files (and
 types than others, not _everything_ can be treated only as the
 undifferentiated byte stream of “normal files”.  For example, when a
 file is created or removed, the system must record this information,
-which it does in a “directory”—a special type of file.  Although you can
-read directories as normal files, if you’re curious, in order for the
-system to do its job it must impose a structure, a certain order, on the
-bytes of the file.  Thus it is a “special” type of file.
+which it does in a “directory” – a special type of file.  Although you
+can read directories as normal files, if you’re curious, in order for
+the system to do its job it must impose a structure, a certain order, on
+the bytes of the file.  Thus it is a “special” type of file.
 
    Besides directories, other special file types include named pipes
 (FIFOs), symbolic links, sockets, and so-called “special files”.
@@ -8445,13 +8452,13 @@ extension to POSIX.
 
    A “hard link” is another name for an existing file; the link and the
 original are indistinguishable.  Technically speaking, they share the
-same inode, and the inode contains all the information about a
-file—indeed, it is not incorrect to say that the inode _is_ the file.
-Most systems prohibit making a hard link to a directory; on those where
-it is allowed, only the super-user can do so (and with caution, since
-creating a cycle will cause problems to many other utilities).  Hard
-links cannot cross file system boundaries.  (These restrictions are not
-mandated by POSIX, however.)
+same inode, and the inode contains all the information about a file –
+indeed, it is not incorrect to say that the inode _is_ the file.  Most
+systems prohibit making a hard link to a directory; on those where it is
+allowed, only the super-user can do so (and with caution, since creating
+a cycle will cause problems to many other utilities).  Hard links cannot
+cross file system boundaries.  (These restrictions are not mandated by
+POSIX, however.)
 
    “Symbolic links” (“symlinks” for short), on the other hand, are a
 special file type (which not all kernels support: System V release 3
@@ -8528,7 +8535,7 @@ options::.
      are two ways to treat the user’s request.  ‘ln’ can treat the
      destination just as it would a normal directory and create the link
      in it.  On the other hand, the destination can be viewed as a
-     non-directory—as the symlink itself.  In that case, ‘ln’ must
+     non-directory – as the symlink itself.  In that case, ‘ln’ must
      delete or backup that symlink before creating the new link.  The
      default is to treat a destination that is a symlink to a directory
      just like a directory.
@@ -9829,7 +9836,7 @@ options::.
 
 ‘-d DEPTH’
 ‘--max-depth=DEPTH’
-     Show the total for each directory (and file if –all) that is at
+     Show the total for each directory (and file if ‘--all’) that is at
      most MAX_DEPTH levels down from the root of the hierarchy.  The
      root is at level 0, so ‘du --max-depth=0’ is equivalent to ‘du -s’.
 
@@ -9940,7 +9947,7 @@ options::.
           du --threshold=200MB
 
      Here’s how you would use ‘--threshold’ to find directories and
-     files - note the ‘-a’ - with an apparent size smaller than or equal
+     files – note the ‘-a’ – with an apparent size smaller than or equal
      to 500 bytes:
 
           du -a -t -500 --apparent-size
@@ -10117,42 +10124,42 @@ stat ...’) to avoid interference from the shell.
    The valid FORMAT directives for files with ‘--format’ and ‘--printf’
 are:
 
-   • %a - Permission bits in octal (note ‘#’ and ‘0’ printf flags)
-   • %A - Permission bits in symbolic form (similar to ‘ls -ld’)
-   • %b - Number of blocks allocated (see ‘%B’)
-   • %B - The size in bytes of each block reported by ‘%b’
-   • %C - The SELinux security context of a file, if available
-   • %d - Device number in decimal (st_dev)
-   • %D - Device number in hex (st_dev)
-   • %Hd - Major device number in decimal
-   • %Ld - Minor device number in decimal
-   • %f - Raw mode in hex
-   • %F - File type
-   • %g - Group ID of owner
-   • %G - Group name of owner
-   • %h - Number of hard links
-   • %i - Inode number
-   • %m - Mount point (See note below)
-   • %n - File name
-   • %N - Quoted file name with dereference if symbolic link (see below)
-   • %o - Optimal I/O transfer size hint
-   • %s - Total size, in bytes
-   • %r - Device type in decimal (st_rdev)
-   • %R - Device type in hex (st_rdev)
-   • %Hr - Major device type in decimal (see below)
-   • %Lr - Minor device type in decimal (see below)
-   • %t - Major device type in hex (see below)
-   • %T - Minor device type in hex (see below)
-   • %u - User ID of owner
-   • %U - User name of owner
-   • %w - Time of file birth, or ‘-’ if unknown
-   • %W - Time of file birth as seconds since Epoch, or ‘0’
-   • %x - Time of last access
-   • %X - Time of last access as seconds since Epoch
-   • %y - Time of last data modification
-   • %Y - Time of last data modification as seconds since Epoch
-   • %z - Time of last status change
-   • %Z - Time of last status change as seconds since Epoch
+   • %a – Permission bits in octal (note ‘#’ and ‘0’ printf flags)
+   • %A – Permission bits in symbolic form (similar to ‘ls -ld’)
+   • %b – Number of blocks allocated (see ‘%B’)
+   • %B – The size in bytes of each block reported by ‘%b’
+   • %C – The SELinux security context of a file, if available
+   • %d – Device number in decimal (st_dev)
+   • %D – Device number in hex (st_dev)
+   • %Hd – Major device number in decimal
+   • %Ld – Minor device number in decimal
+   • %f – Raw mode in hex
+   • %F – File type
+   • %g – Group ID of owner
+   • %G – Group name of owner
+   • %h – Number of hard links
+   • %i – Inode number
+   • %m – Mount point (See note below)
+   • %n – File name
+   • %N – Quoted file name with dereference if symbolic link (see below)
+   • %o – Optimal I/O transfer size hint
+   • %s – Total size, in bytes
+   • %r – Device type in decimal (st_rdev)
+   • %R – Device type in hex (st_rdev)
+   • %Hr – Major device type in decimal (see below)
+   • %Lr – Minor device type in decimal (see below)
+   • %t – Major device type in hex (see below)
+   • %T – Minor device type in hex (see below)
+   • %u – User ID of owner
+   • %U – User name of owner
+   • %w – Time of file birth, or ‘-’ if unknown
+   • %W – Time of file birth as seconds since Epoch, or ‘0’
+   • %x – Time of last access
+   • %X – Time of last access as seconds since Epoch
+   • %y – Time of last data modification
+   • %Y – Time of last data modification as seconds since Epoch
+   • %z – Time of last status change
+   • %Z – Time of last status change as seconds since Epoch
 
    The ‘%a’ format prints the octal mode, and so it is useful to control
 the zero padding of the output with the ‘#’ and ‘0’ printf flags.  For
@@ -10237,18 +10244,18 @@ except that:
    When listing file system information (‘--file-system’ (‘-f’)), you
 must use a different set of FORMAT directives:
 
-   • %a - Free blocks available to non-super-user
-   • %b - Total data blocks in file system
-   • %c - Total file nodes in file system
-   • %d - Free file nodes in file system
-   • %f - Free blocks in file system
-   • %i - File System ID in hex
-   • %l - Maximum length of file names
-   • %n - File name
-   • %s - Block size (for faster transfers)
-   • %S - Fundamental block size (for block counts)
-   • %t - Type in hex
-   • %T - Type in human readable form
+   • %a – Free blocks available to non-super-user
+   • %b – Total data blocks in file system
+   • %c – Total file nodes in file system
+   • %d – Free file nodes in file system
+   • %f – Free blocks in file system
+   • %i – File System ID in hex
+   • %l – Maximum length of file names
+   • %n – File name
+   • %s – Block size (for faster transfers)
+   • %S – Fundamental block size (for block counts)
+   • %t – Type in hex
+   • %T – Type in human readable form
 
    Timestamps are listed according to the time zone rules specified by
 the ‘TZ’ environment variable, or by the system default rules if ‘TZ’ is
@@ -10729,12 +10736,12 @@ brackets.  *Note Common options::.
 
 * Menu:
 
-* File type tests::             -[bcdfhLpSt]
-* Access permission tests::     -[gkruwxOG]
-* File characteristic tests::   -e -s -nt -ot -ef
-* String tests::                -z -n = == !=
-* Numeric tests::               -eq -ne -lt -le -gt -ge
-* Connectives for test::        ! -a -o
+* File type tests::             ‘-[bcdfhLpSt]’
+* Access permission tests::     ‘-[gkruwxOG]’
+* File characteristic tests::   ‘-e -s -nt -ot -ef’
+* String tests::                ‘-z -n = == !=’
+* Numeric tests::               ‘-eq -ne -lt -le -gt -ge’
+* Connectives for test::        ‘! -a -o’
 
 
 File: coreutils.info,  Node: File type tests,  Next: Access permission tests,  Up: test invocation
@@ -10981,9 +10988,9 @@ options::.  Options must precede operands.
 
 * Menu:
 
-* String expressions::          + : match substr index length
-* Numeric expressions::         + - * / %
-* Relations for expr::          | & < <= = == != >= >
+* String expressions::          ‘+ : match substr index length’
+* Numeric expressions::         ‘+ - * / %’
+* Relations for expr::          ‘| & < <= = == != >= >’
 * Examples of expr::            Examples.
 
 
@@ -11132,7 +11139,7 @@ File: coreutils.info,  Node: Redirection,  Next: File name manipulation,  Prev: 
 17 Redirection
 **************
 
-Unix shells commonly provide several forms of “redirection”—ways to
+Unix shells commonly provide several forms of “redirection” – ways to
 change the input source or output destination of a command.  But one
 useful redirection is performed by a separate command, not by the shell;
 it’s described here.
@@ -11157,7 +11164,7 @@ send some data down a pipe, but also to save a copy.  Synopsis:
 a file being written to already exists, the data it previously contained
 is overwritten unless the ‘-a’ option is used.
 
-   In previous versions of GNU Coreutils (v5.3.0 – v8.23), a FILE of ‘-’
+   In previous versions of GNU Coreutils (5.3.0–8.23), a FILE of ‘-’
 caused ‘tee’ to send another copy of input to standard output.  However,
 as the interleaved output was not very useful, ‘tee’ now conforms to
 POSIX and treats ‘-’ as a file name.
@@ -11792,8 +11799,8 @@ options::.
 ‘-P’
 ‘--physical’
      Print a fully resolved name for the current directory.  That is,
-     all components of the printed name will be actual directory
-     names—none will be symbolic links.
+     all components of the printed name will be actual directory names –
+     none will be symbolic links.
 
    If ‘-L’ and ‘-P’ are both given, the last one takes precedence.  If
 neither option is given, then this implementation uses ‘-P’ as the
@@ -13909,7 +13916,7 @@ options::.  Options must precede operands.
      with traditional shells.  Here the first trap command sets SIGPIPE
      to ignore.  The second trap command ostensibly sets it back to its
      default, but POSIX mandates that the shell must not change
-     inherited state of the signal - so it is a no-op.
+     inherited state of the signal – so it is a no-op.
 
           trap '' PIPE && sh -c 'trap - PIPE ; seq inf | head -n1'
 
@@ -13922,7 +13929,7 @@ options::.  Options must precede operands.
      Ignore signal SIG when running a program.  Without SIG all known
      signals are set to ignore.  Multiple signals can be
      comma-separated.  An empty SIG argument is a no-op.  The following
-     command runs ‘seq’ with SIGINT set to be ignored - pressing
+     command runs ‘seq’ with SIGINT set to be ignored – pressing
      ‘Ctrl-C’ will not terminate it:
 
           env --ignore-signal=INT seq inf > /dev/null
@@ -14979,8 +14986,8 @@ IEC
 
      The ‘iec’ option uses a single letter suffix (e.g.  ‘G’), which is
      not fully standard, as the _iec_ standard recommends a two-letter
-     symbol (e.g ‘Gi’) - but in practice, this method common.  Compare
-     with the ‘iec-i’ option.
+     symbol (e.g ‘Gi’) – but in practice, this method is common.
+     Compare with the ‘iec-i’ option.
 
 IEC-I
      Auto-scale numbers according to the _International Electrotechnical
@@ -15856,15 +15863,15 @@ arguments to the various programs.  The C interface (via the
 * Menu:
 
 * General date syntax::          Common rules
-* Calendar date items::          21 Jul 2020
-* Time of day items::            9:20pm
-* Time zone items::              UTC, -0700, +0900, ...
-* Combined date and time of day items:: 2020-07-21T20:02:00,000000-0400
-* Day of week items::            Monday and others
-* Relative items in date strings:: next tuesday, 2 years ago
-* Pure numbers in date strings:: 20200721, 1440
-* Seconds since the Epoch::      @1595289600
-* Specifying time zone rules::   TZ="America/New_York", TZ="UTC0"
+* Calendar date items::          ‘14 Nov 2022’
+* Time of day items::            ‘9:02pm’
+* Time zone items::              ‘UTC’, ‘-0700’, ‘+0900’, ...
+* Combined date and time of day items:: ‘2022-11-14T21:02:42,000000-0500’
+* Day of week items::            ‘Monday’ and others
+* Relative items in date strings:: ‘next tuesday, 2 years ago’
+* Pure numbers in date strings:: ‘20221114’, ‘2102’
+* Seconds since the Epoch::      ‘@1668477762’
+* Specifying time zone rules::   ‘TZ="America/New_York"’, ‘TZ="UTC0"’
 * Authors of parse_datetime::    Bellovin, Eggert, Salz, Berets, et al.
 
 
@@ -15915,24 +15922,24 @@ date format that is independent of language and that does not use time
 zone items other than ‘UTC’ and ‘Z’.  Here are some ways to do this:
 
      $ LC_ALL=C TZ=UTC0 date
-     Tue Jul 21 23:00:37 UTC 2020
+     Tue Nov 15 02:02:42 UTC 2022
      $ TZ=UTC0 date +'%Y-%m-%d %H:%M:%SZ'
-     2020-07-21 23:00:37Z
+     2022-11-15 02:02:42Z
      $ date --rfc-3339=ns  # --rfc-3339 is a GNU extension.
-     2020-07-21 19:00:37.692722128-04:00
-     $ date --rfc-2822  # a GNU extension
-     Tue, 21 Jul 2020 19:00:37 -0400
+     2022-11-14 21:02:42.000000000-05:00
+     $ date --rfc-email  # a GNU extension
+     Mon, 14 Nov 2022 21:02:42 -0500
      $ date +'%Y-%m-%d %H:%M:%S %z'  # %z is a GNU extension.
-     2020-07-21 19:00:37 -0400
+     2022-11-14 21:02:42 -0500
      $ date +'@%s.%N'  # %s and %N are GNU extensions.
-     @1595372437.692722128
+     @1668477762.692722128
 
    Alphabetic case is completely ignored in dates.  Comments may be
 introduced between round parentheses, as long as included parentheses
 are properly nested.  Hyphens not followed by a digit are currently
 ignored.  Leading zeros on numbers are ignored.
 
-   Invalid dates like ‘2019-02-29’ or times like ‘24:00’ are rejected.
+   Invalid dates like ‘2022-02-29’ or times like ‘24:00’ are rejected.
 In the typical case of a host that does not support leap seconds, a time
 like ‘23:59:60’ is rejected even if it corresponds to a valid leap
 second.
@@ -15947,21 +15954,21 @@ A “calendar date item” specifies a day of the year.  It is specified
 differently, depending on whether the month is specified numerically or
 literally.  All these strings specify the same calendar date:
 
-     2020-07-20     # ISO 8601.
-     20-7-20        # Assume 19xx for 69 through 99,
+     2022-11-14     # ISO 8601.
+     22-11-14       # Assume 19xx for 69 through 99,
                     # 20xx for 00 through 68 (not recommended).
-     7/20/2020      # Common U.S. writing.
-     20 July 2020
-     20 Jul 2020    # Three-letter abbreviations always allowed.
-     Jul 20, 2020
-     20-jul-2020
-     20jul2020
+     11/14/2022     # Common U.S. writing.
+     14 November 2022
+     14 Nov 2022    # Three-letter abbreviations always allowed.
+     November 14, 2022
+     14-nov-2022
+     14nov2022
 
    The year can also be omitted.  In this case, the last specified year
 is used, or the current year if none.  For example:
 
-     7/20
-     jul 20
+     11/14
+     nov 14
 
    Here are the rules.
 
@@ -16081,8 +16088,8 @@ precision is silently discarded.
 
    Here are some examples:
 
-     2012-09-24T20:02:00.052-05:00
-     2012-12-31T23:59:59,999999999+11:00
+     2022-09-24T20:02:00.052-05:00
+     2022-12-31T23:59:59,999999999+11:00
      1970-01-01 00:00Z
 
 
@@ -16153,17 +16160,17 @@ where the clocks were adjusted, typically for daylight saving time, the
 resulting date and time are adjusted accordingly.
 
    The fuzz in units can cause problems with relative items.  For
-example, ‘2020-07-31 -1 month’ might evaluate to 2020-07-01, because
-2020-06-31 is an invalid date.  To determine the previous month more
+example, ‘2022-12-31 -1 month’ might evaluate to 2022-12-01, because
+2022-11-31 is an invalid date.  To determine the previous month more
 reliably, you can ask for the month before the 15th of the current
 month.  For example:
 
      $ date -R
-     Thu, 31 Jul 2020 13:02:39 -0400
+     Thu, 31 Dec 2022 13:02:39 -0400
      $ date --date='-1 month' +'Last month was %B?'
-     Last month was July?
+     Last month was December?
      $ date --date="$(date +%Y-%m-15) -1 month" +'Last month was %B!'
-     Last month was June!
+     Last month was November!
 
    Also, take care when manipulating dates around clock changes such as
 daylight saving leaps.  In a few cases these have added or subtracted as
@@ -16242,19 +16249,19 @@ be escaped by a backslash.
 
    For example, with the GNU ‘date’ command you can answer the question
 “What time is it in New York when a Paris clock shows 6:30am on October
-31, 2019?” by using a date beginning with ‘TZ="Europe/Paris"’ as shown
+31, 2022?” by using a date beginning with ‘TZ="Europe/Paris"’ as shown
 in the following shell transcript:
 
      $ export TZ="America/New_York"
-     $ date --date='TZ="Europe/Paris" 2019-10-31 06:30'
-     Sun Oct 31 01:30:00 EDT 2019
+     $ date --date='TZ="Europe/Paris" 2022-10-31 06:30'
+     Mon Oct 31 01:30:00 EDT 2022
 
    In this example, the ‘--date’ operand begins with its own ‘TZ’
 setting, so the rest of that operand is processed according to
-‘Europe/Paris’ rules, treating the string ‘2019-10-31 06:30’ as if it
+‘Europe/Paris’ rules, treating the string ‘2022-11-14 06:30’ as if it
 were in Paris.  However, since the output of the ‘date’ command is
 processed according to the overall time zone rules, it uses New York
-time.  (Paris was normally six hours ahead of New York in 2019, but this
+time.  (Paris was normally six hours ahead of New York in 2022, but this
 example refers to a brief Halloween period when the gap was five hours.)
 
    A ‘TZ’ value is a rule that typically names a location in the ‘tz’
@@ -16595,7 +16602,7 @@ in *note Version-sort ordering rules::).
    Comparing the string ‘8.1’ to ‘8.01’, first the ‘8’s are compared
 (and are identical), then the dots (‘.’) are compared and are identical,
 and lastly the remaining digits are compared numerically (‘1’ and ‘01’)
-- which are numerically equal.  Hence, ‘8.01’ and ‘8.1’ are grouped
+– which are numerically equal.  Hence, ‘8.01’ and ‘8.1’ are grouped
 together.
 
    Similarly, comparing ‘8.5’ to ‘8.49’ – the ‘8’ and ‘.’ parts are
@@ -16951,7 +16958,7 @@ to the following parts:
      empty   vs  .txt
 
    The comparison of the third parts (‘.’ vs ‘.txt’) will determine that
-the shorter string comes first - resulting in ‘hello-8.2.txt’ appearing
+the shorter string comes first – resulting in ‘hello-8.2.txt’ appearing
 first.
 
    Indeed this is the order in which Debian’s ‘dpkg’ compares the
@@ -17197,7 +17204,7 @@ just the thing.
 
    On the other hand, an experienced carpenter doesn’t build a house
 using a Swiss Army knife.  Instead, he has a toolbox chock full of
-specialized tools—a saw, a hammer, a screwdriver, a plane, and so on.
+specialized tools – a saw, a hammer, a screwdriver, a plane, and so on.
 And he knows exactly when and where to use each tool; you won’t catch
 him hammering nails with the handle of his screwdriver.
 
@@ -17214,7 +17221,7 @@ one program to use, in practice such programs are
 
    Instead, they felt that programs should be specialized tools.  In
 short, each program “should do one thing well.” No more and no less.
-Such programs are simpler to design, write, and get right—they only do
+Such programs are simpler to design, write, and get right – they only do
 one thing.
 
    Furthermore, they found that with the right machinery for hooking
@@ -18307,7 +18314,7 @@ Index
 * --delimiter <1>:                       numfmt invocation.   (line  34)
 * --delimiters:                          paste invocation.    (line  61)
 * --dereference:                         Which files are listed.
-                                                              (line  83)
+                                                              (line  84)
 * --dereference <1>:                     cp invocation.       (line 149)
 * --dereference <2>:                     chown invocation.    (line 107)
 * --dereference <3>:                     chgrp invocation.    (line  34)
@@ -18419,7 +18426,7 @@ Index
 * --hide-control-chars:                  Formatting the file names.
                                                               (line  23)
 * --hide=PATTERN:                        Which files are listed.
-                                                              (line  57)
+                                                              (line  58)
 * --human-numeric-sort:                  sort invocation.     (line 132)
 * --human-readable:                      Block size.          (line 121)
 * --human-readable <1>:                  What information is listed.
@@ -18447,7 +18454,7 @@ Index
 * --ignore-missing:                      md5sum invocation.   (line  90)
 * --ignore-nonprinting:                  sort invocation.     (line 149)
 * --ignore=PATTERN:                      Which files are listed.
-                                                              (line  69)
+                                                              (line  70)
 * --indent:                              pr invocation.       (line 180)
 * --indicator-style:                     General output formatting.
                                                               (line  52)
@@ -18638,7 +18645,7 @@ Index
 * --read-bytes:                          od invocation.       (line  76)
 * --real:                                id invocation.       (line  42)
 * --recursive:                           Which files are listed.
-                                                              (line  90)
+                                                              (line  91)
 * --recursive <1>:                       cp invocation.       (line 252)
 * --recursive <2>:                       rm invocation.       (line  95)
 * --recursive <3>:                       chown invocation.    (line 151)
@@ -18739,12 +18746,12 @@ Index
 * --sort <2>:                            sort invocation.     (line 156)
 * --sort <3>:                            sort invocation.     (line 166)
 * --sort <4>:                            sort invocation.     (line 195)
-* --sort <5>:                            Sorting the output.  (line  31)
-* --sort <6>:                            Sorting the output.  (line  35)
-* --sort <7>:                            Sorting the output.  (line  63)
-* --sort <8>:                            Sorting the output.  (line  70)
-* --sort <9>:                            Sorting the output.  (line  76)
-* --sort <10>:                           Sorting the output.  (line  82)
+* --sort <5>:                            Sorting the output.  (line  32)
+* --sort <6>:                            Sorting the output.  (line  36)
+* --sort <7>:                            Sorting the output.  (line  64)
+* --sort <8>:                            Sorting the output.  (line  71)
+* --sort <9>:                            Sorting the output.  (line  77)
+* --sort <10>:                           Sorting the output.  (line  83)
 * --spaces:                              fold invocation.     (line  29)
 * --sparse=WHEN:                         cp invocation.       (line 296)
 * --split-only:                          fmt invocation.      (line  47)
@@ -18793,9 +18800,9 @@ Index
 * --text:                                md5sum invocation.   (line 124)
 * --threshold:                           du invocation.       (line 158)
 * --time:                                Sorting the output.  (line  13)
-* --time <1>:                            Sorting the output.  (line  43)
-* --time <2>:                            Sorting the output.  (line  49)
-* --time <3>:                            Sorting the output.  (line  56)
+* --time <1>:                            Sorting the output.  (line  44)
+* --time <2>:                            Sorting the output.  (line  50)
+* --time <3>:                            Sorting the output.  (line  57)
 * --time <4>:                            touch invocation.    (line  48)
 * --time <5>:                            touch invocation.    (line  85)
 * --time <6>:                            du invocation.       (line 198)
@@ -19114,7 +19121,7 @@ Index
                                                               (line  35)
 * -i <9>:                                expand invocation.   (line  46)
 * -I:                                    Which files are listed.
-                                                              (line  69)
+                                                              (line  70)
 * -i <10>:                               What information is listed.
                                                               (line 125)
 * -i <11>:                               cp invocation.       (line 139)
@@ -19149,7 +19156,7 @@ Index
 * -L <1>:                                wc invocation.       (line  66)
 * -l <5>:                                b2sum invocation.    (line  12)
 * -L <2>:                                Which files are listed.
-                                                              (line  83)
+                                                              (line  84)
 * -l <6>:                                What information is listed.
                                                               (line 133)
 * -l <7>:                                cp invocation.       (line 145)
@@ -19287,7 +19294,7 @@ Index
 * -R <1>:                                Output formatting in ptx.
                                                               (line  56)
 * -R <2>:                                Which files are listed.
-                                                              (line  90)
+                                                              (line  91)
 * -r <6>:                                Sorting the output.  (line  25)
 * -R <3>:                                cp invocation.       (line 252)
 * -r <7>:                                cp invocation.       (line 252)
@@ -19332,7 +19339,7 @@ Index
 * -s <14>:                               tr invocation.       (line  42)
 * -s <15>:                               What information is listed.
                                                               (line 236)
-* -S <5>:                                Sorting the output.  (line  31)
+* -S <5>:                                Sorting the output.  (line  32)
 * -s <16>:                               cp invocation.       (line 340)
 * -S <6>:                                cp invocation.       (line 348)
 * -s <17>:                               install invocation.  (line 113)
@@ -19373,7 +19380,7 @@ Index
 * -t <7>:                                tr invocation.       (line  47)
 * -t <8>:                                expand invocation.   (line  22)
 * -t <9>:                                unexpand invocation. (line  24)
-* -t <10>:                               Sorting the output.  (line  35)
+* -t <10>:                               Sorting the output.  (line  36)
 * -T <4>:                                General output formatting.
                                                               (line 129)
 * -t <11>:                               cp invocation.       (line 353)
@@ -19399,8 +19406,8 @@ Index
 * -u <2>:                                split invocation.    (line 155)
 * -u <3>:                                sort invocation.     (line 374)
 * -u <4>:                                uniq invocation.     (line 128)
-* -u <5>:                                Sorting the output.  (line  43)
-* -U:                                    Sorting the output.  (line  63)
+* -u <5>:                                Sorting the output.  (line  44)
+* -U:                                    Sorting the output.  (line  64)
 * -u <6>:                                cp invocation.       (line 362)
 * -u <7>:                                mv invocation.       (line  84)
 * -u <8>:                                shred invocation.    (line 144)
@@ -19420,7 +19427,7 @@ Index
 * -v <4>:                                head invocation.     (line  51)
 * -v <5>:                                tail invocation.     (line 184)
 * -V:                                    sort invocation.     (line 183)
-* -v <6>:                                Sorting the output.  (line  70)
+* -v <6>:                                Sorting the output.  (line  71)
 * -v <7>:                                cp invocation.       (line 377)
 * -v <8>:                                install invocation.  (line 135)
 * -v <9>:                                mv invocation.       (line  95)
@@ -19460,7 +19467,7 @@ Index
 * -WIDTH:                                fmt invocation.      (line  59)
 * -x:                                    od invocation.       (line 197)
 * -x <1>:                                split invocation.    (line 131)
-* -X:                                    Sorting the output.  (line  82)
+* -X:                                    Sorting the output.  (line  83)
 * -x <2>:                                General output formatting.
                                                               (line 125)
 * -x <3>:                                cp invocation.       (line 381)
@@ -19539,7 +19546,7 @@ Index
 * access time, changing:                 touch invocation.    (line  48)
 * access timestamp:                      dd invocation.       (line 324)
 * access timestamp, printing or sorting files by: Sorting the output.
-                                                              (line  43)
+                                                              (line  44)
 * access timestamp, show the most recent: du invocation.      (line 211)
 * across columns:                        pr invocation.       (line  62)
 * across, listing files:                 General output formatting.
@@ -19582,7 +19589,7 @@ Index
 * ascii, converting to:                  dd invocation.       (line 138)
 * atime:                                 File timestamps.     (line   6)
 * atime, changing:                       touch invocation.    (line  48)
-* atime, printing or sorting files by:   Sorting the output.  (line  43)
+* atime, printing or sorting files by:   Sorting the output.  (line  44)
 * atime, show the most recent:           du invocation.       (line 211)
 * attribute caching:                     stat invocation.     (line  33)
 * attributes, file:                      Changing file attributes.
@@ -19641,7 +19648,7 @@ Index
 * bind mount:                            rm invocation.       (line  67)
 * bind mount <1>:                        stat invocation.     (line 199)
 * birth time, printing or sorting files by: Sorting the output.
-                                                              (line  56)
+                                                              (line  57)
 * birthtime:                             File timestamps.     (line   6)
 * BLAKE2:                                b2sum invocation.    (line   6)
 * BLAKE2 hash length:                    b2sum invocation.    (line  12)
@@ -19856,7 +19863,7 @@ Index
 * creating output file, avoiding:        dd invocation.       (line 210)
 * creating output file, requiring:       dd invocation.       (line 206)
 * creation timestamp, printing or sorting files by: Sorting the output.
-                                                              (line  56)
+                                                              (line  57)
 * crN:                                   Output.              (line  45)
 * crown margin:                          fmt invocation.      (line  34)
 * crt:                                   Combination.         (line  75)
@@ -19876,7 +19883,7 @@ Index
 * cut:                                   cut invocation.      (line   6)
 * cyclic redundancy check:               cksum invocation.    (line   6)
 * data modification time, printing or sorting files by: Sorting the output.
-                                                              (line  49)
+                                                              (line  50)
 * data, erasing:                         shred invocation.    (line   6)
 * database for color setup, printing:    dircolors invocation.
                                                               (line  45)
@@ -19951,7 +19958,7 @@ Index
 * directory listing:                     ls invocation.       (line   6)
 * directory listing, brief:              dir invocation.      (line   6)
 * directory listing, recursive:          Which files are listed.
-                                                              (line  90)
+                                                              (line  91)
 * directory listing, verbose:            vdir invocation.     (line   6)
 * directory order, listing by:           Sorting the output.  (line  18)
 * directory, creating temporary:         mktemp invocation.   (line   6)
@@ -20079,7 +20086,7 @@ Index
 * ext4 file system type:                 df invocation.       (line 212)
 * extended attributes, xattr:            install invocation.  (line  34)
 * extended attributes, xattr <1>:        mv invocation.       (line  33)
-* extension, sorting files by:           Sorting the output.  (line  82)
+* extension, sorting files by:           Sorting the output.  (line  83)
 * extproc:                               Local.               (line  61)
 * factor:                                factor invocation.   (line   6)
 * failure exit status:                   false invocation.    (line   6)
@@ -20467,7 +20474,7 @@ Index
 * modes of created directories, setting: mkdir invocation.    (line  19)
 * modes of created FIFOs, setting:       mkfifo invocation.   (line  21)
 * modification timestamp, sorting files by: Sorting the output.
-                                                              (line  35)
+                                                              (line  36)
 * modified command invocation:           Modified command invocation.
                                                               (line   6)
 * modified environment, running a program in a: env invocation.
@@ -20482,7 +20489,7 @@ Index
 * MS-Windows file system:                df invocation.       (line 220)
 * mtime:                                 File timestamps.     (line   6)
 * mtime, changing:                       touch invocation.    (line  85)
-* mtime, printing or sorting files by:   Sorting the output.  (line  49)
+* mtime, printing or sorting files by:   Sorting the output.  (line  50)
 * mtime-greater-atime file check:        File characteristic tests.
                                                               (line  27)
 * multicall:                             Multi-call invocation.
@@ -20549,7 +20556,7 @@ Index
 * none hyperlink option:                 General output formatting.
                                                               (line  75)
 * none total option:                     wc invocation.       (line  81)
-* none, sorting option for ls:           Sorting the output.  (line  63)
+* none, sorting option for ls:           Sorting the output.  (line  64)
 * nonempty file check:                   File characteristic tests.
                                                               (line  12)
 * nonprinting characters, ignoring:      sort invocation.     (line 149)
@@ -20796,7 +20803,7 @@ Index
 * realpath <3>:                          readlink invocation. (line   6)
 * record separator character:            split invocation.    (line 148)
 * recursive directory listing:           Which files are listed.
-                                                              (line  90)
+                                                              (line  91)
 * recursively changing access permissions: chmod invocation.  (line  73)
 * recursively changing file ownership:   chown invocation.    (line 151)
 * recursively changing group ownership:  chgrp invocation.    (line  77)
@@ -20958,7 +20965,7 @@ Index
 * size of file to shred:                 shred invocation.    (line 138)
 * size of files, reporting:              What information is listed.
                                                               (line 236)
-* size of files, sorting files by:       Sorting the output.  (line  31)
+* size of files, sorting files by:       Sorting the output.  (line  32)
 * skip:                                  dd invocation.       (line  73)
 * sleep:                                 sleep invocation.    (line   6)
 * socket check:                          File type tests.     (line  31)
@@ -21081,7 +21088,7 @@ Index
 * symbolic links, dereferencing <1>:     Which files are listed.
                                                               (line  41)
 * symbolic links, dereferencing <2>:     Which files are listed.
-                                                              (line  83)
+                                                              (line  84)
 * symbolic links, dereferencing in du:   du invocation.       (line 118)
 * symbolic links, dereferencing in du <1>: du invocation.     (line 134)
 * symbolic links, dereferencing in stat: stat invocation.     (line  22)
@@ -21231,7 +21238,7 @@ Index
 * use time, changing:                    touch invocation.    (line  48)
 * use time, printing or sorting files by: Sorting the output. (line  13)
 * use time, printing or sorting files by <1>: Sorting the output.
-                                                              (line  43)
+                                                              (line  44)
 * use time, show the most recent:        du invocation.       (line 205)
 * user IDs, disambiguating:              Disambiguating names and IDs.
                                                               (line   6)
@@ -21259,7 +21266,7 @@ Index
 * version number sort:                   sort invocation.     (line 183)
 * version number, finding:               Common options.      (line  40)
 * version of kernel:                     uname invocation.    (line  77)
-* version, sorting option for ls:        Sorting the output.  (line  70)
+* version, sorting option for ls:        Sorting the output.  (line  71)
 * version-control Emacs variable:        Backup options.      (line  24)
 * VERSION_CONTROL:                       Backup options.      (line  13)
 * VERSION_CONTROL <1>:                   cp invocation.       (line  79)
@@ -21276,7 +21283,7 @@ Index
 * who:                                   who invocation.      (line   6)
 * who am i:                              who invocation.      (line  21)
 * whoami:                                whoami invocation.   (line   6)
-* width, sorting option for ls:          Sorting the output.  (line  76)
+* width, sorting option for ls:          Sorting the output.  (line  77)
 * word count:                            wc invocation.       (line   6)
 * working context:                       Working context.     (line   6)
 * working directory, printing:           pwd invocation.      (line   6)
@@ -21308,257 +21315,257 @@ Index
 
 Tag Table:
 Node: Top8618
-Node: Introduction23214
-Node: Common options25095
-Node: Exit status28532
-Node: Backup options29368
-Node: Block size31414
-Node: Floating point36751
-Node: Signal specifications38610
-Node: Disambiguating names and IDs40780
-Node: Random sources42422
-Node: Target directory44431
-Node: Trailing slashes48081
-Node: Traversing symlinks49120
-Node: Treating / specially50252
-Node: Special built-in utilities51886
-Node: Standards conformance53085
-Node: Multi-call invocation54831
-Node: Output of entire files55393
-Node: cat invocation56130
-Node: tac invocation58128
-Node: nl invocation59561
-Node: od invocation63841
-Node: base32 invocation71663
-Node: base64 invocation72261
-Node: basenc invocation73834
-Node: Formatting file contents77517
-Node: fmt invocation77968
-Node: pr invocation80962
-Node: fold invocation93238
-Node: Output of parts of files94753
-Node: head invocation95250
-Node: tail invocation98178
-Node: split invocation109218
-Node: csplit invocation117472
-Node: Summarizing files122958
-Node: wc invocation123669
-Node: sum invocation128132
-Node: cksum invocation129472
-Node: b2sum invocation132080
-Node: md5sum invocation132781
-Node: sha1sum invocation140294
-Node: sha2 utilities141359
-Node: Operating on sorted files141890
-Node: sort invocation142477
-Ref: sort invocation-Footnote-1168850
-Node: shuf invocation169460
-Node: uniq invocation172661
-Node: comm invocation178802
-Node: ptx invocation182904
-Node: General options in ptx185738
-Node: Charset selection in ptx186338
-Node: Input processing in ptx187246
-Node: Output formatting in ptx192791
-Node: Compatibility in ptx199627
-Node: tsort invocation203010
-Node: tsort background206214
-Node: Operating on fields207922
-Node: cut invocation208284
-Node: paste invocation213064
-Node: join invocation215236
-Node: General options in join216700
-Node: Sorting files for join221892
-Node: Working with fields223602
-Ref: Working with fields-Footnote-1225184
-Node: Paired and unpaired lines225282
-Node: Header lines228220
-Node: Set operations229131
-Node: Operating on characters230651
-Node: tr invocation231074
-Node: Character arrays232932
-Node: Translating239153
-Node: Squeezing and deleting241310
-Node: expand invocation244300
-Node: unexpand invocation246468
-Node: Directory listing248989
-Node: ls invocation249487
-Ref: ls invocation-Footnote-1251654
-Node: Which files are listed251898
-Node: What information is listed255912
-Node: Sorting the output265788
-Node: General output formatting268968
-Node: Formatting file timestamps276601
-Node: Formatting the file names282204
-Node: dir invocation285560
-Node: vdir invocation285987
-Node: dircolors invocation286412
-Node: Basic operations288346
-Node: cp invocation288966
-Node: dd invocation307489
-Node: install invocation326772
-Node: mv invocation333115
-Node: rm invocation338397
-Node: shred invocation343283
-Node: Special file types353646
-Node: link invocation355175
-Node: ln invocation356432
-Node: mkdir invocation365533
-Node: mkfifo invocation368588
-Node: mknod invocation370063
-Node: readlink invocation372612
-Node: rmdir invocation375171
-Node: unlink invocation376791
-Node: Changing file attributes377785
-Node: chown invocation378611
-Node: chgrp invocation386081
-Node: chmod invocation390323
-Node: touch invocation393840
-Node: File space usage399551
-Node: df invocation400255
-Node: du invocation410091
-Node: stat invocation421344
-Node: sync invocation430991
-Node: truncate invocation433183
-Node: Printing text435223
-Node: echo invocation435603
-Node: printf invocation438856
-Node: yes invocation444905
-Node: Conditions445557
-Node: false invocation446152
-Node: true invocation447241
-Node: test invocation448574
-Node: File type tests450711
-Node: Access permission tests451630
-Node: File characteristic tests452544
-Node: String tests453435
-Node: Numeric tests454274
-Node: Connectives for test455109
-Node: expr invocation456363
-Node: String expressions458812
-Node: Numeric expressions461479
-Node: Relations for expr462187
-Node: Examples of expr463416
-Node: Redirection464165
-Node: tee invocation464630
-Node: File name manipulation471195
-Node: basename invocation471770
-Node: dirname invocation473989
-Node: pathchk invocation475806
-Node: mktemp invocation477620
-Node: realpath invocation483438
-Node: Realpath usage examples486501
-Node: Working context488316
-Node: pwd invocation488960
-Node: stty invocation490379
-Node: Control493364
-Node: Input494440
-Node: Output496194
-Node: Local497612
-Node: Combination499699
-Node: Characters502111
-Node: Special503946
-Node: printenv invocation506344
-Node: tty invocation507355
-Node: User information508089
-Node: id invocation508724
-Node: logname invocation511437
-Node: whoami invocation512094
-Node: groups invocation512605
-Node: users invocation513840
-Node: who invocation515020
-Node: System context518355
-Node: date invocation519020
-Node: Time conversion specifiers520954
-Node: Date conversion specifiers523690
-Node: Literal conversion specifiers527155
-Node: Padding and other flags527527
-Node: Setting the time531171
-Node: Options for date532335
-Node: Examples of date537882
-Ref: %s-examples539384
-Node: arch invocation542317
-Node: nproc invocation542876
-Node: uname invocation544096
-Node: hostname invocation546824
-Node: hostid invocation547654
-Node: uptime invocation548527
-Node: SELinux context550009
-Node: chcon invocation550384
-Node: runcon invocation552789
-Node: Modified command invocation554570
-Node: chroot invocation555262
-Ref: chroot invocation-Footnote-1559156
-Node: env invocation559673
-Node: nice invocation576529
-Node: nohup invocation580662
-Node: stdbuf invocation583164
-Node: timeout invocation586098
-Node: Process control590890
-Node: kill invocation591113
-Node: Delaying594307
-Node: sleep invocation594504
-Node: Numeric operations595920
-Node: factor invocation596305
-Node: numfmt invocation598273
-Node: seq invocation610003
-Node: File permissions614401
-Node: Mode Structure615094
-Node: Symbolic Modes618773
-Node: Setting Permissions619891
-Node: Copying Permissions622557
-Node: Changing Special Mode Bits623427
-Node: Conditional Executability625309
-Node: Multiple Changes625861
-Node: Umask and Protection627534
-Node: Numeric Modes628679
-Node: Operator Numeric Modes631025
-Node: Directory Setuid and Setgid632085
-Node: File timestamps634940
-Node: Date input formats638263
-Node: General date syntax640674
-Node: Calendar date items643805
-Node: Time of day items645790
-Node: Time zone items648094
-Node: Combined date and time of day items649495
-Node: Day of week items650366
-Node: Relative items in date strings651450
-Node: Pure numbers in date strings654360
-Node: Seconds since the Epoch655349
-Node: Specifying time zone rules657080
-Node: Authors of parse_datetime660516
-Ref: Authors of get_date660707
-Node: Version sort ordering661706
-Node: Version sort overview662027
-Node: Using version sort in GNU Coreutils663039
-Node: Version sort and natural sort664555
-Node: Variations in version sort order665429
-Node: Version sort implementation666209
-Node: Version-sort ordering rules667020
-Node: Version sort is not the same as numeric sort669817
-Node: Version sort punctuation671853
-Node: Punctuation vs letters673484
-Node: The tilde ~674323
-Node: Version sort ignores locale675682
-Node: Differences from Debian version sort676778
-Node: Hyphen-minus and colon677359
-Node: Special priority in GNU Coreutils version sort678990
-Node: Special handling of file extensions680166
-Node: Comparing two strings using Debian's algorithm685237
-Node: Advanced version sort topics687155
-Node: Reporting version sort bugs687445
-Node: Other version/natural sort implementations688650
-Node: Related source code690797
-Node: Opening the software toolbox691563
-Node: Toolbox introduction692361
-Node: I/O redirection695109
-Node: The who command697997
-Node: The cut command698922
-Node: The sort command700024
-Node: The uniq command700742
-Node: Putting the tools together701457
-Node: GNU Free Documentation License713794
-Node: Concept index739173
+Node: Introduction23310
+Node: Common options25191
+Node: Backup options28642
+Node: Block size30668
+Node: Signal specifications36012
+Node: Disambiguating names and IDs38178
+Node: Random sources39822
+Node: Target directory41831
+Node: Trailing slashes45481
+Node: Traversing symlinks46520
+Node: Treating / specially47650
+Node: Special built-in utilities49282
+Node: Exit status50471
+Node: Floating point51346
+Node: Standards conformance53208
+Node: Multi-call invocation54942
+Node: Output of entire files55504
+Node: cat invocation56241
+Node: tac invocation58239
+Node: nl invocation59672
+Node: od invocation63952
+Node: base32 invocation71774
+Node: base64 invocation72372
+Node: basenc invocation73945
+Node: Formatting file contents77628
+Node: fmt invocation78079
+Node: pr invocation81072
+Node: fold invocation93348
+Node: Output of parts of files94863
+Node: head invocation95360
+Node: tail invocation98288
+Node: split invocation109331
+Node: csplit invocation117585
+Node: Summarizing files123071
+Node: wc invocation123782
+Node: sum invocation128245
+Node: cksum invocation129585
+Node: b2sum invocation132193
+Node: md5sum invocation132894
+Node: sha1sum invocation140407
+Node: sha2 utilities141472
+Node: Operating on sorted files142003
+Node: sort invocation142590
+Ref: sort invocation-Footnote-1168963
+Node: shuf invocation169573
+Node: uniq invocation172774
+Node: comm invocation178915
+Node: ptx invocation183017
+Node: General options in ptx185851
+Node: Charset selection in ptx186451
+Node: Input processing in ptx187359
+Node: Output formatting in ptx192904
+Node: Compatibility in ptx199740
+Node: tsort invocation203123
+Node: tsort background206327
+Node: Operating on fields208035
+Node: cut invocation208397
+Node: paste invocation213177
+Node: join invocation215349
+Node: General options in join216813
+Node: Sorting files for join222021
+Node: Working with fields223731
+Ref: Working with fields-Footnote-1225313
+Node: Paired and unpaired lines225411
+Node: Header lines228349
+Node: Set operations229260
+Node: Operating on characters230780
+Node: tr invocation231203
+Node: Character arrays233061
+Node: Translating239282
+Node: Squeezing and deleting241439
+Node: expand invocation244429
+Node: unexpand invocation246597
+Node: Directory listing249118
+Node: ls invocation249616
+Ref: ls invocation-Footnote-1251783
+Node: Which files are listed252027
+Node: What information is listed256055
+Node: Sorting the output265931
+Node: General output formatting269119
+Node: Formatting file timestamps276752
+Node: Formatting the file names282355
+Node: dir invocation285711
+Node: vdir invocation286138
+Node: dircolors invocation286563
+Node: Basic operations288497
+Node: cp invocation289117
+Node: dd invocation307642
+Node: install invocation326927
+Node: mv invocation333272
+Node: rm invocation338554
+Node: shred invocation343440
+Node: Special file types353803
+Node: link invocation355334
+Node: ln invocation356591
+Node: mkdir invocation365697
+Node: mkfifo invocation368752
+Node: mknod invocation370227
+Node: readlink invocation372776
+Node: rmdir invocation375335
+Node: unlink invocation376955
+Node: Changing file attributes377949
+Node: chown invocation378775
+Node: chgrp invocation386245
+Node: chmod invocation390487
+Node: touch invocation394004
+Node: File space usage399715
+Node: df invocation400419
+Node: du invocation410255
+Node: stat invocation421517
+Node: sync invocation431260
+Node: truncate invocation433452
+Node: Printing text435492
+Node: echo invocation435872
+Node: printf invocation439125
+Node: yes invocation445174
+Node: Conditions445826
+Node: false invocation446421
+Node: true invocation447510
+Node: test invocation448843
+Node: File type tests451016
+Node: Access permission tests451935
+Node: File characteristic tests452849
+Node: String tests453740
+Node: Numeric tests454579
+Node: Connectives for test455414
+Node: expr invocation456668
+Node: String expressions459135
+Node: Numeric expressions461802
+Node: Relations for expr462510
+Node: Examples of expr463739
+Node: Redirection464488
+Node: tee invocation464955
+Node: File name manipulation471516
+Node: basename invocation472091
+Node: dirname invocation474310
+Node: pathchk invocation476127
+Node: mktemp invocation477941
+Node: realpath invocation483759
+Node: Realpath usage examples486822
+Node: Working context488637
+Node: pwd invocation489281
+Node: stty invocation490702
+Node: Control493687
+Node: Input494763
+Node: Output496517
+Node: Local497935
+Node: Combination500022
+Node: Characters502434
+Node: Special504269
+Node: printenv invocation506667
+Node: tty invocation507678
+Node: User information508412
+Node: id invocation509047
+Node: logname invocation511760
+Node: whoami invocation512417
+Node: groups invocation512928
+Node: users invocation514163
+Node: who invocation515343
+Node: System context518678
+Node: date invocation519343
+Node: Time conversion specifiers521277
+Node: Date conversion specifiers524013
+Node: Literal conversion specifiers527478
+Node: Padding and other flags527850
+Node: Setting the time531494
+Node: Options for date532658
+Node: Examples of date538205
+Ref: %s-examples539707
+Node: arch invocation542640
+Node: nproc invocation543199
+Node: uname invocation544419
+Node: hostname invocation547147
+Node: hostid invocation547977
+Node: uptime invocation548850
+Node: SELinux context550332
+Node: chcon invocation550707
+Node: runcon invocation553112
+Node: Modified command invocation554893
+Node: chroot invocation555585
+Ref: chroot invocation-Footnote-1559479
+Node: env invocation559996
+Node: nice invocation576856
+Node: nohup invocation580989
+Node: stdbuf invocation583491
+Node: timeout invocation586425
+Node: Process control591217
+Node: kill invocation591440
+Node: Delaying594634
+Node: sleep invocation594831
+Node: Numeric operations596247
+Node: factor invocation596632
+Node: numfmt invocation598600
+Node: seq invocation610334
+Node: File permissions614732
+Node: Mode Structure615425
+Node: Symbolic Modes619104
+Node: Setting Permissions620222
+Node: Copying Permissions622888
+Node: Changing Special Mode Bits623758
+Node: Conditional Executability625640
+Node: Multiple Changes626192
+Node: Umask and Protection627865
+Node: Numeric Modes629010
+Node: Operator Numeric Modes631356
+Node: Directory Setuid and Setgid632416
+Node: File timestamps635271
+Node: Date input formats638594
+Node: General date syntax641083
+Node: Calendar date items644215
+Node: Time of day items646210
+Node: Time zone items648514
+Node: Combined date and time of day items649915
+Node: Day of week items650786
+Node: Relative items in date strings651870
+Node: Pure numbers in date strings654788
+Node: Seconds since the Epoch655777
+Node: Specifying time zone rules657508
+Node: Authors of parse_datetime660944
+Ref: Authors of get_date661135
+Node: Version sort ordering662134
+Node: Version sort overview662455
+Node: Using version sort in GNU Coreutils663467
+Node: Version sort and natural sort664983
+Node: Variations in version sort order665857
+Node: Version sort implementation666637
+Node: Version-sort ordering rules667448
+Node: Version sort is not the same as numeric sort670245
+Node: Version sort punctuation672283
+Node: Punctuation vs letters673914
+Node: The tilde ~674753
+Node: Version sort ignores locale676112
+Node: Differences from Debian version sort677208
+Node: Hyphen-minus and colon677789
+Node: Special priority in GNU Coreutils version sort679420
+Node: Special handling of file extensions680596
+Node: Comparing two strings using Debian's algorithm685669
+Node: Advanced version sort topics687587
+Node: Reporting version sort bugs687877
+Node: Other version/natural sort implementations689082
+Node: Related source code691229
+Node: Opening the software toolbox691995
+Node: Toolbox introduction692793
+Node: I/O redirection695545
+Node: The who command698433
+Node: The cut command699358
+Node: The sort command700460
+Node: The uniq command701178
+Node: Putting the tools together701893
+Node: GNU Free Documentation License714230
+Node: Concept index739609
 
 End Tag Table
 
