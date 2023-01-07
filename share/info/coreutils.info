@@ -4,7 +4,7 @@ coreutils.texi.
 This manual documents version UNKNOWN of the GNU core utilities,
 including the standard programs for text and file manipulation.
 
-   Copyright © 1994–2022 Free Software Foundation, Inc.
+   Copyright © 1994–2023 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -136,7 +136,7 @@ GNU Coreutils
 This manual documents version UNKNOWN of the GNU core utilities,
 including the standard programs for text and file manipulation.
 
-   Copyright © 1994–2022 Free Software Foundation, Inc.
+   Copyright © 1994–2023 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -725,7 +725,7 @@ equivalent to ‘1048576’, whereas ‘1MB’ is equivalent to ‘1000000’.
 prepended, except that it causes a size indication to be appended to the
 output.  For example, ‘--block-size="kB"’ displays 3000 as ‘3kB’.
 
-   The following suffixes are defined.  Large sizes like ‘1Y’ may be
+   The following suffixes are defined.  Large sizes like ‘1Q’ may be
 rejected by your computer due to limitations of its arithmetic.
 
 ‘kB’
@@ -765,12 +765,22 @@ rejected by your computer due to limitations of its arithmetic.
      zettabyte: 10^{21} = 1,000,000,000,000,000,000,000
 ‘Z’
 ‘ZiB’
-     2^{70} = 1,180,591,620,717,411,303,424.
+     zebibyte: 2^{70} = 1,180,591,620,717,411,303,424.
 ‘YB’
      yottabyte: 10^{24} = 1,000,000,000,000,000,000,000,000.
 ‘Y’
 ‘YiB’
-     2^{80} = 1,208,925,819,614,629,174,706,176.
+     yobibyte: 2^{80} = 1,208,925,819,614,629,174,706,176.
+‘RB’
+     ronnabyte: 10^{27} = 1,000,000,000,000,000,000,000,000,000.
+‘R’
+‘RiB’
+     robibyte: 2^{90} = 1,237,940,039,285,380,274,899,124,224.
+‘QB’
+     quettabyte: 10^{30} = 1,000,000,000,000,000,000,000,000,000,000.
+‘Q’
+‘QiB’
+     quebibyte: 2^{100} = 1,267,650,600,228,229,401,496,703,205,376.
 
    Block size defaults can be overridden by an explicit
 ‘--block-size=SIZE’ option.  The ‘-k’ option is equivalent to
@@ -1556,8 +1566,8 @@ options::.
           ‘M’  =>      1024*1024 (MebiBytes)
           ‘GB’ => 1000*1000*1000 (GigaBytes)
           ‘G’  => 1024*1024*1024 (GibiBytes)
-     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, and ‘Y’.  Binary prefixes can be
-     used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
+     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, ‘Y’, ‘R’, and ‘Q’.  Binary
+     prefixes can be used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
 
 ‘-N BYTES’
 ‘--read-bytes=BYTES’
@@ -2299,8 +2309,8 @@ options::.
           ‘M’  =>      1024*1024 (MebiBytes)
           ‘GB’ => 1000*1000*1000 (GigaBytes)
           ‘G’  => 1024*1024*1024 (GibiBytes)
-     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, and ‘Y’.  Binary prefixes can be
-     used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
+     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, ‘Y’, ‘R’, and ‘Q’.  Binary
+     prefixes can be used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
 
 ‘-n [-]NUM’
 ‘--lines=[-]NUM’
@@ -2389,8 +2399,8 @@ options::.
           ‘M’  =>      1024*1024 (MebiBytes)
           ‘GB’ => 1000*1000*1000 (GigaBytes)
           ‘G’  => 1024*1024*1024 (GibiBytes)
-     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, and ‘Y’.  Binary prefixes can be
-     used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
+     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, ‘Y’, ‘R’, and ‘Q’.  Binary
+     prefixes can be used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
 
 ‘-f’
 ‘--follow[=HOW]’
@@ -2617,8 +2627,8 @@ options::.
           ‘M’  =>      1024*1024 (MebiBytes)
           ‘GB’ => 1000*1000*1000 (GigaBytes)
           ‘G’  => 1024*1024*1024 (GibiBytes)
-     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, and ‘Y’.  Binary prefixes can be
-     used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
+     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, ‘Y’, ‘R’, and ‘Q’.  Binary
+     prefixes can be used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
 
 ‘-C SIZE’
 ‘--line-bytes=SIZE’
@@ -3516,7 +3526,7 @@ scripts should specify global options first.
 ‘--sort=human-numeric’
      Sort numerically, first by numeric sign (negative, zero, or
      positive); then by SI suffix (either empty, or ‘k’ or ‘K’, or one
-     of ‘MGTPEZY’, in that order; *note Block size::); and finally by
+     of ‘MGTPEZYRQ’, in that order; *note Block size::); and finally by
      numeric value.  For example, ‘1023M’ sorts before ‘1G’ because ‘M’
      (mega) precedes ‘G’ (giga) as an SI suffix.  This option sorts
      values that are consistently scaled to the nearest suffix,
@@ -3708,7 +3718,7 @@ scripts should specify global options first.
      is in units of 1024 bytes.  Appending ‘%’ causes SIZE to be
      interpreted as a percentage of physical memory.  Appending ‘K’
      multiplies SIZE by 1024 (the default), ‘M’ by 1,048,576, ‘G’ by
-     1,073,741,824, and so on for ‘T’, ‘P’, ‘E’, ‘Z’, and ‘Y’.
+     1,073,741,824, and so on for ‘T’, ‘P’, ‘E’, ‘Z’, ‘Y’, ‘R’, and ‘Q’.
      Appending ‘b’ causes SIZE to be interpreted as a byte count, with
      no multiplication.
 
@@ -10372,8 +10382,8 @@ options::.
           ‘M’  =>      1024*1024 (MebiBytes)
           ‘GB’ => 1000*1000*1000 (GigaBytes)
           ‘G’  => 1024*1024*1024 (GibiBytes)
-     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, and ‘Y’.  Binary prefixes can be
-     used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
+     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, ‘Y’, ‘R’, and ‘Q’.  Binary
+     prefixes can be used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
 
      SIZE may also be prefixed by one of the following to adjust the
      size of each FILE based on its current size:
@@ -14512,8 +14522,8 @@ options::.
           ‘M’  =>      1024*1024 (MebiBytes)
           ‘GB’ => 1000*1000*1000 (GigaBytes)
           ‘G’  => 1024*1024*1024 (GibiBytes)
-     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, and ‘Y’.  Binary prefixes can be
-     used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
+     and so on for ‘T’, ‘P’, ‘E’, ‘Z’, ‘Y’, ‘R’, and ‘Q’.  Binary
+     prefixes can be used, too: ‘KiB’=‘K’, ‘MiB’=‘M’, and so on.
 
    ‘stdbuf’ is installed only on platforms that use the Executable and
 Linkable Format (ELF) and support the ‘constructor’ attribute, so
@@ -14990,6 +15000,8 @@ SI
           ‘E’  =>  1000^6 = 10^{18} (Exa)
           ‘Z’  =>  1000^7 = 10^{21} (Zetta)
           ‘Y’  =>  1000^8 = 10^{24} (Yotta)
+          ‘R’  =>  1000^9 = 10^{27} (Ronna)
+          ‘Q’  =>  1000^{10} = 10^{30} (Quetta)
 
 IEC
      Auto-scale numbers according to the _International Electrotechnical
@@ -15005,6 +15017,8 @@ IEC
           ‘E’  =>  1024^6 = 2^{60} (Exbi)
           ‘Z’  =>  1024^7 = 2^{70} (Zebi)
           ‘Y’  =>  1024^8 = 2^{80} (Yobi)
+          ‘R’  =>  1024^9 = 2^{90} (Robi)
+          ‘Q’  =>  1024^{10} = 2^{100} (Quebi)
 
      The ‘iec’ option uses a single letter suffix (e.g.  ‘G’), which is
      not fully standard, as the _iec_ standard recommends a two-letter
@@ -15025,6 +15039,8 @@ IEC-I
           ‘Ei’  =>  1024^6 = 2^{60} (Exbi)
           ‘Zi’  =>  1024^7 = 2^{70} (Zebi)
           ‘Yi’  =>  1024^8 = 2^{80} (Yobi)
+          ‘Ri’  =>  1024^9 = 2^{90} (Robi)
+          ‘Qi’  =>  1024^{10} = 2^{100} (Quebi)
 
      The ‘iec-i’ option uses a two-letter suffix symbol (e.g.  ‘Gi’), as
      the _iec_ standard recommends, but this is not always common in
@@ -15032,10 +15048,9 @@ IEC-I
 
 AUTO
      ‘auto’ can only be used with ‘--from’.  With this method, numbers
-     with ‘K’,‘M’,‘G’,‘T’,‘P’,‘E’,‘Z’,‘Y’ suffixes are interpreted as
-     _SI_ values, and numbers with ‘Ki’,
-     ‘Mi’,‘Gi’,‘Ti’,‘Pi’,‘Ei’,‘Zi’,‘Yi’ suffixes are interpreted as
-     _IEC_ values.
+     with single-letter suffixes like ‘K’ suffixes are interpreted as
+     _SI_ values, and numbers with two-letter suffixes like ‘Ki’ are
+     interpreted as _IEC_ values.
 
 26.2.3 Examples of using ‘numfmt’
 ---------------------------------
@@ -15068,6 +15083,12 @@ values):
 
      $ numfmt --from=si --to=iec 1T
      932G
+
+   With both input and output scales specified, the largest defined
+prefixes are supported:
+
+     $ numfmt --from=si --to=iec-i 2000R
+     1.6Qi
 
    Converting a single field from an input file / piped input (these
 contrived examples are for demonstration purposes only, as both ‘ls’ and
@@ -18263,7 +18284,7 @@ Index
 * --batch-size:                          sort invocation.     (line 268)
 * --before:                              tac invocation.      (line  21)
 * --binary:                              md5sum invocation.   (line  45)
-* --block-size:                          Block size.          (line 121)
+* --block-size:                          Block size.          (line 131)
 * --block-size <1>:                      df invocation.       (line  54)
 * --block-size <2>:                      du invocation.       (line  51)
 * --block-size=SIZE:                     Block size.          (line  12)
@@ -18450,7 +18471,7 @@ Index
 * --hide=PATTERN:                        Which files are listed.
                                                               (line  58)
 * --human-numeric-sort:                  sort invocation.     (line 132)
-* --human-readable:                      Block size.          (line 121)
+* --human-readable:                      Block size.          (line 131)
 * --human-readable <1>:                  What information is listed.
                                                               (line 118)
 * --human-readable <2>:                  df invocation.       (line  59)
@@ -18740,7 +18761,7 @@ Index
 * --show-nonprinting:                    cat invocation.      (line  52)
 * --show-nonprinting <1>:                pr invocation.       (line 225)
 * --show-tabs:                           cat invocation.      (line  45)
-* --si:                                  Block size.          (line 121)
+* --si:                                  Block size.          (line 131)
 * --si <1>:                              What information is listed.
                                                               (line 251)
 * --si <2>:                              df invocation.       (line 168)
@@ -19106,7 +19127,7 @@ Index
 * -G <2>:                                id invocation.       (line  33)
 * -ge:                                   Numeric tests.       (line  16)
 * -gt:                                   Numeric tests.       (line  16)
-* -h:                                    Block size.          (line 121)
+* -h:                                    Block size.          (line 131)
 * -H:                                    Traversing symlinks. (line  18)
 * -h <1>:                                nl invocation.       (line  76)
 * -h <2>:                                pr invocation.       (line 111)
@@ -19159,7 +19180,7 @@ Index
 * -I[TIMESPEC]:                          Options for date.    (line  42)
 * -j:                                    od invocation.       (line  59)
 * -J:                                    pr invocation.       (line 124)
-* -k:                                    Block size.          (line 121)
+* -k:                                    Block size.          (line 131)
 * -k <1>:                                csplit invocation.   (line  87)
 * -k <2>:                                sort invocation.     (line 237)
 * -k <3>:                                General output formatting.
@@ -20799,6 +20820,7 @@ Index
 * pure numbers in date strings:          Pure numbers in date strings.
                                                               (line   6)
 * pwd:                                   pwd invocation.      (line   6)
+* quettabyte, definition of:             Block size.          (line 126)
 * quit:                                  Characters.          (line  21)
 * quoting style:                         Formatting the file names.
                                                               (line  34)
@@ -20868,6 +20890,7 @@ Index
 * rm:                                    rm invocation.       (line   6)
 * rmdir:                                 rmdir invocation.    (line   6)
 * rn format for nl:                      nl invocation.       (line  98)
+* ronnabyte, definition of:              Block size.          (line 121)
 * root as default owner:                 install invocation.  (line  91)
 * root directory, allow recursive destruction: rm invocation. (line  88)
 * root directory, allow recursive modification: chown invocation.
@@ -21343,253 +21366,253 @@ Node: Introduction23312
 Node: Common options25193
 Node: Backup options28644
 Node: Block size30670
-Node: Signal specifications36014
-Node: Disambiguating names and IDs38180
-Node: Random sources39824
-Node: Target directory41833
-Node: Trailing slashes45483
-Node: Traversing symlinks46522
-Node: Treating / specially47652
-Node: Special built-in utilities49284
-Node: Exit status50473
-Node: Floating point51348
-Node: Standards conformance53210
-Node: Multi-call invocation54944
-Node: Output of entire files55506
-Node: cat invocation56243
-Node: tac invocation58241
-Node: nl invocation59674
-Node: od invocation63954
-Node: base32 invocation71776
-Node: base64 invocation72374
-Node: basenc invocation73947
-Node: Formatting file contents77630
-Node: fmt invocation78081
-Node: pr invocation81074
-Node: fold invocation93350
-Node: Output of parts of files94865
-Node: head invocation95362
-Node: tail invocation98290
-Node: split invocation109333
-Node: csplit invocation117587
-Node: Summarizing files123073
-Node: wc invocation123784
-Node: sum invocation128247
-Node: cksum invocation129587
-Node: b2sum invocation132195
-Node: md5sum invocation132896
-Node: sha1sum invocation140409
-Node: sha2 utilities141474
-Node: Operating on sorted files142005
-Node: sort invocation142592
-Ref: sort invocation-Footnote-1168965
-Node: shuf invocation169575
-Node: uniq invocation172776
-Node: comm invocation178917
-Node: ptx invocation183019
-Node: General options in ptx185853
-Node: Charset selection in ptx186453
-Node: Input processing in ptx187361
-Node: Output formatting in ptx192906
-Node: Compatibility in ptx199742
-Node: tsort invocation203125
-Node: tsort background206329
-Node: Operating on fields208037
-Node: cut invocation208399
-Node: paste invocation213179
-Node: join invocation215351
-Node: General options in join216815
-Node: Sorting files for join222023
-Node: Working with fields223733
-Ref: Working with fields-Footnote-1225315
-Node: Paired and unpaired lines225413
-Node: Header lines228351
-Node: Set operations229262
-Node: Operating on characters230782
-Node: tr invocation231205
-Node: Character arrays233063
-Node: Translating239284
-Node: Squeezing and deleting241441
-Node: expand invocation244431
-Node: unexpand invocation246599
-Node: Directory listing249120
-Node: ls invocation249618
-Ref: ls invocation-Footnote-1251785
-Node: Which files are listed252029
-Node: What information is listed256057
-Node: Sorting the output265933
-Node: General output formatting269121
-Node: Formatting file timestamps276754
-Node: Formatting the file names282357
-Node: dir invocation285713
-Node: vdir invocation286140
-Node: dircolors invocation286565
-Node: Basic operations288499
-Node: cp invocation289119
-Node: dd invocation307644
-Node: install invocation326929
-Node: mv invocation333274
-Node: rm invocation338556
-Node: shred invocation343442
-Node: Special file types353805
-Node: link invocation355336
-Node: ln invocation356593
-Node: mkdir invocation365699
-Node: mkfifo invocation368754
-Node: mknod invocation370229
-Node: readlink invocation372778
-Node: rmdir invocation375337
-Node: unlink invocation376957
-Node: Changing file attributes377951
-Node: chown invocation378777
-Node: chgrp invocation386247
-Node: chmod invocation390489
-Node: touch invocation394006
-Node: File space usage399717
-Node: df invocation400421
-Node: du invocation410257
-Node: stat invocation422242
-Node: sync invocation431985
-Node: truncate invocation434177
-Node: Printing text436217
-Node: echo invocation436597
-Node: printf invocation439850
-Node: yes invocation445899
-Node: Conditions446551
-Node: false invocation447146
-Node: true invocation448235
-Node: test invocation449568
-Node: File type tests451741
-Node: Access permission tests452660
-Node: File characteristic tests453574
-Node: String tests454465
-Node: Numeric tests455304
-Node: Connectives for test456139
-Node: expr invocation457393
-Node: String expressions459860
-Node: Numeric expressions462527
-Node: Relations for expr463235
-Node: Examples of expr464464
-Node: Redirection465213
-Node: tee invocation465680
-Node: File name manipulation472625
-Node: basename invocation473200
-Node: dirname invocation475419
-Node: pathchk invocation477236
-Node: mktemp invocation479050
-Node: realpath invocation484868
-Node: Realpath usage examples487931
-Node: Working context489746
-Node: pwd invocation490390
-Node: stty invocation491811
-Node: Control494796
-Node: Input495872
-Node: Output497626
-Node: Local499044
-Node: Combination501131
-Node: Characters503543
-Node: Special505378
-Node: printenv invocation507776
-Node: tty invocation508787
-Node: User information509521
-Node: id invocation510156
-Node: logname invocation512869
-Node: whoami invocation513526
-Node: groups invocation514037
-Node: users invocation515272
-Node: who invocation516452
-Node: System context519787
-Node: date invocation520452
-Node: Time conversion specifiers522386
-Node: Date conversion specifiers525122
-Node: Literal conversion specifiers528587
-Node: Padding and other flags528959
-Node: Setting the time532603
-Node: Options for date533767
-Node: Examples of date539416
-Ref: %s-examples540918
-Node: arch invocation543851
-Node: nproc invocation544410
-Node: uname invocation545630
-Node: hostname invocation548358
-Node: hostid invocation549188
-Node: uptime invocation550061
-Node: SELinux context551543
-Node: chcon invocation551918
-Node: runcon invocation554323
-Node: Modified command invocation556104
-Node: chroot invocation556796
-Ref: chroot invocation-Footnote-1560690
-Node: env invocation561207
-Node: nice invocation578067
-Node: nohup invocation582200
-Node: stdbuf invocation584702
-Node: timeout invocation587636
-Node: Process control592428
-Node: kill invocation592651
-Node: Delaying595845
-Node: sleep invocation596042
-Node: Numeric operations597458
-Node: factor invocation597843
-Node: numfmt invocation599811
-Node: seq invocation611545
-Node: File permissions615943
-Node: Mode Structure616636
-Node: Symbolic Modes620315
-Node: Setting Permissions621433
-Node: Copying Permissions624099
-Node: Changing Special Mode Bits624969
-Node: Conditional Executability626851
-Node: Multiple Changes627403
-Node: Umask and Protection629076
-Node: Numeric Modes630221
-Node: Operator Numeric Modes632567
-Node: Directory Setuid and Setgid633627
-Node: File timestamps636482
-Node: Date input formats639805
-Node: General date syntax642294
-Node: Calendar date items645426
-Node: Time of day items647421
-Node: Time zone items649725
-Node: Combined date and time of day items651126
-Node: Day of week items651997
-Node: Relative items in date strings653081
-Node: Pure numbers in date strings655999
-Node: Seconds since the Epoch656988
-Node: Specifying time zone rules658719
-Node: Authors of parse_datetime662155
-Ref: Authors of get_date662346
-Node: Version sort ordering663345
-Node: Version sort overview663666
-Node: Using version sort in GNU Coreutils664678
-Node: Version sort and natural sort666194
-Node: Variations in version sort order667068
-Node: Version sort implementation667848
-Node: Version-sort ordering rules668659
-Node: Version sort is not the same as numeric sort671456
-Node: Version sort punctuation673494
-Node: Punctuation vs letters675125
-Node: The tilde ~675964
-Node: Version sort ignores locale677323
-Node: Differences from Debian version sort678419
-Node: Hyphen-minus and colon679000
-Node: Special priority in GNU Coreutils version sort680631
-Node: Special handling of file extensions681807
-Node: Comparing two strings using Debian's algorithm686880
-Node: Advanced version sort topics688798
-Node: Reporting version sort bugs689088
-Node: Other version/natural sort implementations690293
-Node: Related source code692440
-Node: Opening the software toolbox693206
-Node: Toolbox introduction694004
-Node: I/O redirection696756
-Node: The who command699644
-Node: The cut command700569
-Node: The sort command701671
-Node: The uniq command702389
-Node: Putting the tools together703104
-Node: GNU Free Documentation License715441
-Node: Concept index740820
+Node: Signal specifications36355
+Node: Disambiguating names and IDs38521
+Node: Random sources40165
+Node: Target directory42174
+Node: Trailing slashes45824
+Node: Traversing symlinks46863
+Node: Treating / specially47993
+Node: Special built-in utilities49625
+Node: Exit status50814
+Node: Floating point51689
+Node: Standards conformance53551
+Node: Multi-call invocation55285
+Node: Output of entire files55847
+Node: cat invocation56584
+Node: tac invocation58582
+Node: nl invocation60015
+Node: od invocation64295
+Node: base32 invocation72135
+Node: base64 invocation72733
+Node: basenc invocation74306
+Node: Formatting file contents77989
+Node: fmt invocation78440
+Node: pr invocation81433
+Node: fold invocation93709
+Node: Output of parts of files95224
+Node: head invocation95721
+Node: tail invocation98667
+Node: split invocation109728
+Node: csplit invocation118000
+Node: Summarizing files123486
+Node: wc invocation124197
+Node: sum invocation128660
+Node: cksum invocation130000
+Node: b2sum invocation132608
+Node: md5sum invocation133309
+Node: sha1sum invocation140822
+Node: sha2 utilities141887
+Node: Operating on sorted files142418
+Node: sort invocation143005
+Ref: sort invocation-Footnote-1169398
+Node: shuf invocation170008
+Node: uniq invocation173209
+Node: comm invocation179350
+Node: ptx invocation183452
+Node: General options in ptx186286
+Node: Charset selection in ptx186886
+Node: Input processing in ptx187794
+Node: Output formatting in ptx193339
+Node: Compatibility in ptx200175
+Node: tsort invocation203558
+Node: tsort background206762
+Node: Operating on fields208470
+Node: cut invocation208832
+Node: paste invocation213612
+Node: join invocation215784
+Node: General options in join217248
+Node: Sorting files for join222456
+Node: Working with fields224166
+Ref: Working with fields-Footnote-1225748
+Node: Paired and unpaired lines225846
+Node: Header lines228784
+Node: Set operations229695
+Node: Operating on characters231215
+Node: tr invocation231638
+Node: Character arrays233496
+Node: Translating239717
+Node: Squeezing and deleting241874
+Node: expand invocation244864
+Node: unexpand invocation247032
+Node: Directory listing249553
+Node: ls invocation250051
+Ref: ls invocation-Footnote-1252218
+Node: Which files are listed252462
+Node: What information is listed256490
+Node: Sorting the output266366
+Node: General output formatting269554
+Node: Formatting file timestamps277187
+Node: Formatting the file names282790
+Node: dir invocation286146
+Node: vdir invocation286573
+Node: dircolors invocation286998
+Node: Basic operations288932
+Node: cp invocation289552
+Node: dd invocation308077
+Node: install invocation327362
+Node: mv invocation333707
+Node: rm invocation338989
+Node: shred invocation343875
+Node: Special file types354238
+Node: link invocation355769
+Node: ln invocation357026
+Node: mkdir invocation366132
+Node: mkfifo invocation369187
+Node: mknod invocation370662
+Node: readlink invocation373211
+Node: rmdir invocation375770
+Node: unlink invocation377390
+Node: Changing file attributes378384
+Node: chown invocation379210
+Node: chgrp invocation386680
+Node: chmod invocation390922
+Node: touch invocation394439
+Node: File space usage400150
+Node: df invocation400854
+Node: du invocation410690
+Node: stat invocation422675
+Node: sync invocation432418
+Node: truncate invocation434610
+Node: Printing text436668
+Node: echo invocation437048
+Node: printf invocation440301
+Node: yes invocation446350
+Node: Conditions447002
+Node: false invocation447597
+Node: true invocation448686
+Node: test invocation450019
+Node: File type tests452192
+Node: Access permission tests453111
+Node: File characteristic tests454025
+Node: String tests454916
+Node: Numeric tests455755
+Node: Connectives for test456590
+Node: expr invocation457844
+Node: String expressions460311
+Node: Numeric expressions462978
+Node: Relations for expr463686
+Node: Examples of expr464915
+Node: Redirection465664
+Node: tee invocation466131
+Node: File name manipulation473076
+Node: basename invocation473651
+Node: dirname invocation475870
+Node: pathchk invocation477687
+Node: mktemp invocation479501
+Node: realpath invocation485319
+Node: Realpath usage examples488382
+Node: Working context490197
+Node: pwd invocation490841
+Node: stty invocation492262
+Node: Control495247
+Node: Input496323
+Node: Output498077
+Node: Local499495
+Node: Combination501582
+Node: Characters503994
+Node: Special505829
+Node: printenv invocation508227
+Node: tty invocation509238
+Node: User information509972
+Node: id invocation510607
+Node: logname invocation513320
+Node: whoami invocation513977
+Node: groups invocation514488
+Node: users invocation515723
+Node: who invocation516903
+Node: System context520238
+Node: date invocation520903
+Node: Time conversion specifiers522837
+Node: Date conversion specifiers525573
+Node: Literal conversion specifiers529038
+Node: Padding and other flags529410
+Node: Setting the time533054
+Node: Options for date534218
+Node: Examples of date539867
+Ref: %s-examples541369
+Node: arch invocation544302
+Node: nproc invocation544861
+Node: uname invocation546081
+Node: hostname invocation548809
+Node: hostid invocation549639
+Node: uptime invocation550512
+Node: SELinux context551994
+Node: chcon invocation552369
+Node: runcon invocation554774
+Node: Modified command invocation556555
+Node: chroot invocation557247
+Ref: chroot invocation-Footnote-1561141
+Node: env invocation561658
+Node: nice invocation578518
+Node: nohup invocation582651
+Node: stdbuf invocation585153
+Node: timeout invocation588105
+Node: Process control592897
+Node: kill invocation593120
+Node: Delaying596314
+Node: sleep invocation596511
+Node: Numeric operations597927
+Node: factor invocation598312
+Node: numfmt invocation600280
+Node: seq invocation612375
+Node: File permissions616773
+Node: Mode Structure617466
+Node: Symbolic Modes621145
+Node: Setting Permissions622263
+Node: Copying Permissions624929
+Node: Changing Special Mode Bits625799
+Node: Conditional Executability627681
+Node: Multiple Changes628233
+Node: Umask and Protection629906
+Node: Numeric Modes631051
+Node: Operator Numeric Modes633397
+Node: Directory Setuid and Setgid634457
+Node: File timestamps637312
+Node: Date input formats640635
+Node: General date syntax643124
+Node: Calendar date items646256
+Node: Time of day items648251
+Node: Time zone items650555
+Node: Combined date and time of day items651956
+Node: Day of week items652827
+Node: Relative items in date strings653911
+Node: Pure numbers in date strings656829
+Node: Seconds since the Epoch657818
+Node: Specifying time zone rules659549
+Node: Authors of parse_datetime662985
+Ref: Authors of get_date663176
+Node: Version sort ordering664175
+Node: Version sort overview664496
+Node: Using version sort in GNU Coreutils665508
+Node: Version sort and natural sort667024
+Node: Variations in version sort order667898
+Node: Version sort implementation668678
+Node: Version-sort ordering rules669489
+Node: Version sort is not the same as numeric sort672286
+Node: Version sort punctuation674324
+Node: Punctuation vs letters675955
+Node: The tilde ~676794
+Node: Version sort ignores locale678153
+Node: Differences from Debian version sort679249
+Node: Hyphen-minus and colon679830
+Node: Special priority in GNU Coreutils version sort681461
+Node: Special handling of file extensions682637
+Node: Comparing two strings using Debian's algorithm687710
+Node: Advanced version sort topics689628
+Node: Reporting version sort bugs689918
+Node: Other version/natural sort implementations691123
+Node: Related source code693270
+Node: Opening the software toolbox694036
+Node: Toolbox introduction694834
+Node: I/O redirection697586
+Node: The who command700474
+Node: The cut command701399
+Node: The sort command702501
+Node: The uniq command703219
+Node: Putting the tools together703934
+Node: GNU Free Documentation License716271
+Node: Concept index741650
 
 End Tag Table
 
