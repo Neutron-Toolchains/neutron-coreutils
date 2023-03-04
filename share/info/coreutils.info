@@ -11256,13 +11256,13 @@ options::.
 ‘-p’
 ‘--output-error[=MODE]’
      Adjust the behavior with errors on the outputs.  In summary ‘-p’
-     allows ‘tee’ to operate in a more standard manner with pipes, and
-     to continue to process data to any remaining outputs, if any pipe
-     outputs exit early.  The default operation when ‘--output-error’ is
-     _not_ specified is to exit immediately on error writing to a pipe,
-     and diagnose errors writing to a non-pipe.  The long form
-     ‘--output-error’ option supports selection between the following
-     MODEs:
+     allows ‘tee’ to operate in a more appropriate manner with pipes,
+     and to continue to process data to any remaining outputs, if any
+     pipe outputs exit early.  The default operation when
+     ‘--output-error’ is _not_ specified is to exit immediately on error
+     writing to a pipe, and diagnose errors writing to a non-pipe.  The
+     long form ‘--output-error’ option supports selection between the
+     following MODEs:
 
      ‘warn’
           Warn on error opening or writing any output, including pipes.
@@ -11273,7 +11273,8 @@ options::.
           This is the default MODE when not specified, or when the short
           form ‘-p’ is used.  Warn on error opening or writing any
           output, except pipes.  Writing is continued to still open
-          files/pipes.  Exit status indicates failure if any non pipe
+          files/pipes.  Exit immediately if all remaining outputs become
+          broken pipes.  Exit status indicates failure if any non pipe
           output had an error.
 
      ‘exit’
@@ -11281,6 +11282,7 @@ options::.
 
      ‘exit-nopipe’
           Exit on error opening or writing any output, except pipes.
+          Exit immediately if all remaining outputs become broken pipes.
 
    The ‘tee’ command is useful when you happen to be transferring a
 large amount of data and also want to summarize that data without
@@ -21558,124 +21560,124 @@ Node: Relations for expr465778
 Node: Examples of expr467007
 Node: Redirection467756
 Node: tee invocation468223
-Node: File name manipulation475168
-Node: basename invocation475743
-Node: dirname invocation477962
-Node: pathchk invocation479779
-Node: mktemp invocation481593
-Node: realpath invocation487411
-Node: Realpath usage examples490474
-Node: Working context492289
-Node: pwd invocation492933
-Node: stty invocation494354
-Node: Control497339
-Node: Input498415
-Node: Output500169
-Node: Local501587
-Node: Combination503674
-Node: Characters506086
-Node: Special507921
-Node: printenv invocation510319
-Node: tty invocation511330
-Node: User information512064
-Node: id invocation512699
-Node: logname invocation515412
-Node: whoami invocation516069
-Node: groups invocation516580
-Node: users invocation517815
-Node: who invocation518995
-Node: System context522330
-Node: date invocation522995
-Node: Time conversion specifiers524929
-Node: Date conversion specifiers527665
-Node: Literal conversion specifiers531130
-Node: Padding and other flags531502
-Node: Setting the time535146
-Node: Options for date536310
-Node: Examples of date541960
-Ref: %s-examples543462
-Node: arch invocation546395
-Node: nproc invocation546954
-Node: uname invocation548174
-Node: hostname invocation550902
-Node: hostid invocation551732
-Node: uptime invocation552605
-Node: SELinux context554087
-Node: chcon invocation554462
-Node: runcon invocation556867
-Node: Modified command invocation558648
-Node: chroot invocation559340
-Ref: chroot invocation-Footnote-1563234
-Node: env invocation563751
-Node: nice invocation580612
-Node: nohup invocation584745
-Node: stdbuf invocation587247
-Node: timeout invocation590199
-Node: Process control594991
-Node: kill invocation595214
-Node: Delaying598408
-Node: sleep invocation598605
-Node: Numeric operations600021
-Node: factor invocation600406
-Node: numfmt invocation602374
-Node: seq invocation614469
-Node: File permissions618867
-Node: Mode Structure619560
-Node: Symbolic Modes623239
-Node: Setting Permissions624357
-Node: Copying Permissions627023
-Node: Changing Special Mode Bits627893
-Node: Conditional Executability629775
-Node: Multiple Changes630327
-Node: Umask and Protection632000
-Node: Numeric Modes633145
-Node: Operator Numeric Modes635491
-Node: Directory Setuid and Setgid636551
-Node: File timestamps639406
-Node: Date input formats642729
-Node: General date syntax645218
-Node: Calendar date items648350
-Node: Time of day items650345
-Node: Time zone items652649
-Node: Combined date and time of day items654050
-Node: Day of week items654921
-Node: Relative items in date strings656005
-Node: Pure numbers in date strings658923
-Node: Seconds since the Epoch659912
-Node: Specifying time zone rules661643
-Node: Authors of parse_datetime665079
-Ref: Authors of get_date665270
-Node: Version sort ordering666269
-Node: Version sort overview666590
-Node: Using version sort in GNU Coreutils667602
-Node: Version sort and natural sort669118
-Node: Variations in version sort order669992
-Node: Version sort implementation670772
-Node: Version-sort ordering rules671583
-Node: Version sort is not the same as numeric sort674380
-Node: Version sort punctuation676418
-Node: Punctuation vs letters678049
-Node: The tilde ~678888
-Node: Version sort ignores locale680247
-Node: Differences from Debian version sort681343
-Node: Hyphen-minus and colon681924
-Node: Special priority in GNU Coreutils version sort683555
-Node: Special handling of file extensions684731
-Node: Comparing two strings using Debian's algorithm689804
-Node: Advanced version sort topics691722
-Node: Reporting version sort bugs692012
-Node: Other version/natural sort implementations693217
-Node: Related source code695364
-Node: Opening the software toolbox696130
-Node: Toolbox introduction696928
-Node: I/O redirection699680
-Node: The who command702568
-Node: The cut command703493
-Node: The sort command704595
-Node: The uniq command705313
-Node: Putting the tools together706028
-Node: GNU Free Documentation License718365
-Node: Concept index743744
+Node: File name manipulation475318
+Node: basename invocation475893
+Node: dirname invocation478112
+Node: pathchk invocation479929
+Node: mktemp invocation481743
+Node: realpath invocation487561
+Node: Realpath usage examples490624
+Node: Working context492439
+Node: pwd invocation493083
+Node: stty invocation494504
+Node: Control497489
+Node: Input498565
+Node: Output500319
+Node: Local501737
+Node: Combination503824
+Node: Characters506236
+Node: Special508071
+Node: printenv invocation510469
+Node: tty invocation511480
+Node: User information512214
+Node: id invocation512849
+Node: logname invocation515562
+Node: whoami invocation516219
+Node: groups invocation516730
+Node: users invocation517965
+Node: who invocation519145
+Node: System context522480
+Node: date invocation523145
+Node: Time conversion specifiers525079
+Node: Date conversion specifiers527815
+Node: Literal conversion specifiers531280
+Node: Padding and other flags531652
+Node: Setting the time535296
+Node: Options for date536460
+Node: Examples of date542110
+Ref: %s-examples543612
+Node: arch invocation546545
+Node: nproc invocation547104
+Node: uname invocation548324
+Node: hostname invocation551052
+Node: hostid invocation551882
+Node: uptime invocation552755
+Node: SELinux context554237
+Node: chcon invocation554612
+Node: runcon invocation557017
+Node: Modified command invocation558798
+Node: chroot invocation559490
+Ref: chroot invocation-Footnote-1563384
+Node: env invocation563901
+Node: nice invocation580762
+Node: nohup invocation584895
+Node: stdbuf invocation587397
+Node: timeout invocation590349
+Node: Process control595141
+Node: kill invocation595364
+Node: Delaying598558
+Node: sleep invocation598755
+Node: Numeric operations600171
+Node: factor invocation600556
+Node: numfmt invocation602524
+Node: seq invocation614619
+Node: File permissions619017
+Node: Mode Structure619710
+Node: Symbolic Modes623389
+Node: Setting Permissions624507
+Node: Copying Permissions627173
+Node: Changing Special Mode Bits628043
+Node: Conditional Executability629925
+Node: Multiple Changes630477
+Node: Umask and Protection632150
+Node: Numeric Modes633295
+Node: Operator Numeric Modes635641
+Node: Directory Setuid and Setgid636701
+Node: File timestamps639556
+Node: Date input formats642879
+Node: General date syntax645368
+Node: Calendar date items648500
+Node: Time of day items650495
+Node: Time zone items652799
+Node: Combined date and time of day items654200
+Node: Day of week items655071
+Node: Relative items in date strings656155
+Node: Pure numbers in date strings659073
+Node: Seconds since the Epoch660062
+Node: Specifying time zone rules661793
+Node: Authors of parse_datetime665229
+Ref: Authors of get_date665420
+Node: Version sort ordering666419
+Node: Version sort overview666740
+Node: Using version sort in GNU Coreutils667752
+Node: Version sort and natural sort669268
+Node: Variations in version sort order670142
+Node: Version sort implementation670922
+Node: Version-sort ordering rules671733
+Node: Version sort is not the same as numeric sort674530
+Node: Version sort punctuation676568
+Node: Punctuation vs letters678199
+Node: The tilde ~679038
+Node: Version sort ignores locale680397
+Node: Differences from Debian version sort681493
+Node: Hyphen-minus and colon682074
+Node: Special priority in GNU Coreutils version sort683705
+Node: Special handling of file extensions684881
+Node: Comparing two strings using Debian's algorithm689954
+Node: Advanced version sort topics691872
+Node: Reporting version sort bugs692162
+Node: Other version/natural sort implementations693367
+Node: Related source code695514
+Node: Opening the software toolbox696280
+Node: Toolbox introduction697078
+Node: I/O redirection699830
+Node: The who command702718
+Node: The cut command703643
+Node: The sort command704745
+Node: The uniq command705463
+Node: Putting the tools together706178
+Node: GNU Free Documentation License718515
+Node: Concept index743894
 
 End Tag Table
 
